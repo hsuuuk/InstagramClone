@@ -7,8 +7,6 @@
 
 import FirebaseAuth
 
-typealias FirestoreCompletion = (Error?) -> Void
-
 struct UserService {
     static func fetchUser(withUid uid: String, completion: @escaping (User) -> Void) {
         COLLECTION_USER.document(uid).getDocument { snapshot, error in

@@ -108,23 +108,6 @@ class MainTabController: UITabBarController {
         
         return nav
     }
-    
-//    func didFinishPickingMedia(_ picker: YPImagePicker) {
-//        picker.didFinishPicking { items, _ in
-//            picker.dismiss(animated: false) {
-//                guard let selectedImage = items.singlePhoto?.image else { return }
-//
-//                let controller = UploadPostController()
-//                controller.selectedImage = selectedImage
-//                controller.delegate = self
-//                controller.currentUser = self.user
-//
-//                let nav = UINavigationController(rootViewController: controller)
-//                nav.modalPresentationStyle = .fullScreen
-//                self.present(nav, animated: false)
-//            }
-//        }
-//    }
 }
 
 // MARK: - AuthenticationDelegate
@@ -156,24 +139,41 @@ extension MainTabController: UITabBarControllerDelegate {
             picker.modalPresentationStyle = .fullScreen
             present(picker, animated: true)
             
-            //didFinishPickingMedia(picker)
+            didFinishPickingMedia(picker)
         }
-        
         return true
+    }
+    
+    func didFinishPickingMedia(_ picker: YPImagePicker) {
+        picker.didFinishPicking { items, _ in
+            picker.dismiss(animated: false) {
+                guard let selectedImage = items.singlePhoto?.image else { return }
+
+                let controller = UploadPostController()
+                controller.selectedImage = selectedImage
+                //controller.delegate = self
+                controller.currentUser = self.user
+
+                let navigationController = UINavigationController(rootViewController: controller)
+                navigationController.modalPresentationStyle = .fullScreen
+                self.present(navigationController, animated: false)
+            }
+        }
     }
 }
 
 // MARK: - UploadPostControllerDelegate
 
-extension MainTabController: UploadPostControllerDelegate {
-    func controllerDidFinishUploadingPost(_ controller: UploadPostController) {
-        selectedIndex = 0
-        controller.dismiss(animated: true)
-        
-        guard let feedNav = viewControllers?.first as? UINavigationController else { return }
-        guard let feed = feedNav.viewControllers.first as? FeedController else { return }
-        //feed.handleRefresh()
-        //viewControllers?.first
-    }
-}
+//extension MainTabController: UploadPostControllerDelegate {
+//    func controllerDidFinishUploadingPost(_ controller: UploadPostController) {
+//        selectedIndex = 0
+//        controller.dismiss(animated: true)
+//        
+//        // 업로드 후 FeedController를 다시 첫화면으로
+//        guard let feedNav = viewControllers?.first as? UINavigationController else { return }
+//        guard let feed = feedNav.viewControllers.first as? FeedController else { return }
+//        feed.handleRefresh()
+//        viewControllers?.first
+//    }
+//}
 

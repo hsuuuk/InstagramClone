@@ -11,6 +11,8 @@ import FirebaseAuth
 private let cellIdentifier = "FeedCell"
 
 class FeedController: UIViewController {
+    
+//    private let refresher = UIRefreshControl()
 
     lazy var collectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
@@ -34,6 +36,9 @@ class FeedController: UIViewController {
             make.top.left.right.bottom.equalTo(view.safeAreaLayoutGuide)
         }
         
+//        refresher.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
+//        collectionView.refreshControl = refresher
+        
         navigationItem.title = "게시물"
         
         let logoutBarButton = UIBarButtonItem(image: UIImage(systemName: "rectangle.portrait.and.arrow.forward"), style: .plain, target: self, action: #selector(logoutBarButtonTapped))
@@ -46,6 +51,13 @@ class FeedController: UIViewController {
         navigationController?.navigationBar.standardAppearance = appearance
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
     }
+    
+//    @objc func handleRefresh() {
+//        posts.removeAll()
+//        fetchPosts()
+//        refresher.endRefreshing()
+//        //collectionView.reloadData()
+//    }
     
     @objc func logoutBarButtonTapped() {
         do {

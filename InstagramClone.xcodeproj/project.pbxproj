@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8F1C969C2A09032700128800 /* PostManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1C969B2A09032700128800 /* PostManager.swift */; };
+		8F1C969E2A0905B400128800 /* Typealias.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1C969D2A0905B400128800 /* Typealias.swift */; };
+		8F1C96A02A09090800128800 /* PostData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1C969F2A09090800128800 /* PostData.swift */; };
 		8F9B3D9C2A08D80F0058EFF4 /* UploadPostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9B3D9B2A08D80F0058EFF4 /* UploadPostController.swift */; };
 		8F9B3D9E2A08D8290058EFF4 /* CommentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9B3D9D2A08D8290058EFF4 /* CommentController.swift */; };
 		8F9B3DA02A08D8C30058EFF4 /* InputTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9B3D9F2A08D8C30058EFF4 /* InputTextView.swift */; };
@@ -55,6 +58,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8F1C969B2A09032700128800 /* PostManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostManager.swift; sourceTree = "<group>"; };
+		8F1C969D2A0905B400128800 /* Typealias.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typealias.swift; sourceTree = "<group>"; };
+		8F1C969F2A09090800128800 /* PostData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostData.swift; sourceTree = "<group>"; };
 		8F9B3D9B2A08D80F0058EFF4 /* UploadPostController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadPostController.swift; sourceTree = "<group>"; };
 		8F9B3D9D2A08D8290058EFF4 /* CommentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentController.swift; sourceTree = "<group>"; };
 		8F9B3D9F2A08D8C30058EFF4 /* InputTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTextView.swift; sourceTree = "<group>"; };
@@ -204,6 +210,7 @@
 				8FC80D0329ED013000FA9D9D /* User.swift */,
 				8FC80D0929ED04EB00FA9D9D /* Post.swift */,
 				8F9B3DA92A08E2330058EFF4 /* UserData.swift */,
+				8F1C969F2A09090800128800 /* PostData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -216,6 +223,7 @@
 				8FC80D1029ED07D800FA9D9D /* UserService.swift */,
 				8FC80D0E29ED07CA00FA9D9D /* PostService.swift */,
 				8F9B3DA72A08E22B0058EFF4 /* FirebaseManager.swift */,
+				8F1C969B2A09032700128800 /* PostManager.swift */,
 			);
 			path = Firebase;
 			sourceTree = "<group>";
@@ -236,6 +244,7 @@
 				8FC80D3E29ED322800FA9D9D /* CustomTextField.swift */,
 				8FC80D4229ED33C600FA9D9D /* Constants.swift */,
 				8F9B3D9F2A08D8C30058EFF4 /* InputTextView.swift */,
+				8F1C969D2A0905B400128800 /* Typealias.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -336,9 +345,11 @@
 				8F9B3DAA2A08E2330058EFF4 /* UserData.swift in Sources */,
 				8FC80D0429ED013000FA9D9D /* User.swift in Sources */,
 				8FC80CFF29ECDB7200FA9D9D /* PostViewModel.swift in Sources */,
+				8F1C96A02A09090800128800 /* PostData.swift in Sources */,
 				8FC80D3A29ED2D3E00FA9D9D /* AuthenticationViewModelViewModel.swift in Sources */,
 				8FC80D1129ED07D800FA9D9D /* UserService.swift in Sources */,
 				8F9B3DA02A08D8C30058EFF4 /* InputTextView.swift in Sources */,
+				8F1C969C2A09032700128800 /* PostManager.swift in Sources */,
 				8FC80CED29ECD80500FA9D9D /* SearchController.swift in Sources */,
 				8FC80D1329ED07EE00FA9D9D /* ImageUploader.swift in Sources */,
 				8F9B3DA82A08E22B0058EFF4 /* FirebaseManager.swift in Sources */,
@@ -358,6 +369,7 @@
 				8FC80CEB29ECD7EB00FA9D9D /* FeedController.swift in Sources */,
 				8FC80D0A29ED04EB00FA9D9D /* Post.swift in Sources */,
 				8FC80CFD29ECDB4B00FA9D9D /* ProfileHeaderViewModel.swift in Sources */,
+				8F1C969E2A0905B400128800 /* Typealias.swift in Sources */,
 				8FC80D3F29ED322800FA9D9D /* CustomTextField.swift in Sources */,
 				8FC80D4529ED402B00FA9D9D /* MainTabController.swift in Sources */,
 				8FC80CFA29ECD92200FA9D9D /* ProfileHeader.swift in Sources */,

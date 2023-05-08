@@ -8,17 +8,32 @@
 import UIKit
 import SnapKit
 
-protocol UploadPostControllerDelegate: AnyObject {
-    func controllerDidFinishUploadingPost(_ controller: UploadPostController)
+//protocol UploadPostControllerDelegate: AnyObject {
+//    func controllerDidFinishUploadingPost(_ controller: UploadPostController)
+//}
+
+extension UploadPostController {
+    @objc func didTapDone() {
+        guard let image = selectedImage else { return }
+        guard let caption = captionTextView.text else { return }
+        guard let user = currentUser else { return }
+        
+        showLoader(true)
+        
+        PostManager.uploadPost(caption: caption, image: image, user: user) {
+            self.dismiss(animated: true)
+            // 첫번째 탭으로 이동 코드
+        }
+    }
 }
 
 class UploadPostController: UIViewController {
     
     // MARK: - Properties
     
-    weak var delegate: UploadPostControllerDelegate?
+    //weak var delegate: UploadPostControllerDelegate?
     
-    var currentUser: User?
+    var currentUser: UserData?
     
     var selectedImage: UIImage? {
         didSet { photoImageView.image = selectedImage }
@@ -36,24 +51,14 @@ class UploadPostController: UIViewController {
         let tv = InputTextView()
         tv.placeholderText = "문구 입력..."
         tv.font = UIFont.systemFont(ofSize: 16)
-        tv.delegate = self
         return tv
-    }()
-    
-    private let characterCountLabel : UILabel = {
-        let label = UILabel()
-        label.textColor = .lightGray
-        label.font = UIFont.systemFont(ofSize: 14)
-        label.text = "0/100"
-       return label
     }()
     
     // MARK: - LifeCycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        configureUI()
+        setupLayout()
     }
     
     // MARK: - Actions
@@ -61,33 +66,10 @@ class UploadPostController: UIViewController {
     @objc func didTapCancle() {
         dismiss(animated: true)
     }
-    
-    @objc func didTapDone() {
-        guard let image = selectedImage else { return }
-        guard let caption = captionTextView.text else { return }
-        guard let user = currentUser else { return }
-        
-        showLoader(true)
-        
-        PostService.uploadPost(caption: caption, image: image, user: user) { error in
-            if let error = error {
-                print("DEBUG: Failed to upload post with error \(error.localizedDescription)")
-                return
-            }
-            
-            self.delegate?.controllerDidFinishUploadingPost(self)
-        }
-    }
-    
-    // MARK: - Helpers
-    
-    func checkMaxLength(_ textView: UITextView) {
-        if (textView.text.count) > 100 {
-            textView.deleteBackward()
-        }
-    }
 
-    func configureUI() {
+    // MARK: - Helpers
+
+    func setupLayout() {
         view.backgroundColor = .white
         
         navigationItem.title = "새 게시물"
@@ -108,22 +90,6 @@ class UploadPostController: UIViewController {
             make.right.equalToSuperview().offset(-12)
             make.height.equalTo(64)
         }
-        
-        view.addSubview(characterCountLabel)
-        characterCountLabel.snp.makeConstraints { make in
-            make.bottom.equalTo(captionTextView.snp.bottom).offset(8)
-            make.right.equalToSuperview().offset(-12)
-        }
-    }
-}
-
-// MARK: - UITextViewDelegate
-
-extension UploadPostController: UITextViewDelegate {
-    func textViewDidChange(_ textView: UITextView) {
-        checkMaxLength(textView)
-        let count = textView.text.count
-        characterCountLabel.text = "\(count)/100"
     }
 }
 
