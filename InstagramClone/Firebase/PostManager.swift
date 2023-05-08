@@ -31,7 +31,8 @@ struct PostManager {
         }
     }
     
-    static func fetchPost(completion: @escaping ([PostData]) -> Void) {
+    // 시간별 포스트
+    static func fetchPost(completion: @escaping ([PostData]) -> ()) {
         COLLECTION_POSTS.order(by: "date", descending: true).getDocuments { querySnapshot, error in
             guard let documents = querySnapshot?.documents else { return }
             
@@ -40,7 +41,8 @@ struct PostManager {
         }
     }
     
-    static func fetchPost(forUsers uid: String, completion: @escaping ([PostData]) -> Void) {
+    // 유저별 포스트
+    static func fetchPost(uid: String, completion: @escaping ([PostData]) -> ()) {
         COLLECTION_POSTS.whereField("uid", isEqualTo: uid).getDocuments { querySnapshot, error in
             guard let documents = querySnapshot?.documents else { return }
             
@@ -49,10 +51,12 @@ struct PostManager {
         }
     }
     
-    static func fetchPos(withPostId postId: String, completion: @escaping (PostData) -> Void) {
+    // 특정 포스트
+    static func fetchPost(postId: String, completion: @escaping (PostData) -> ()) {
         COLLECTION_POSTS.document(postId).getDocument { querySnapshot, error in
             guard let snapshot = querySnapshot else { return }
             guard let data = snapshot.data() else { return }
+            
             let post = PostData(postId: snapshot.documentID, data: data)
             completion(post)
         }
