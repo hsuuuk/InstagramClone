@@ -8,9 +8,9 @@
 import UIKit
 
 protocol FeedCellDelegate: AnyObject {
-//    func cell(_ cell: FeedCell, wantsToShowCommentsFor post: Post)
-//    func cell(_ cell: FeedCell, didLike post: Post)
-//    func cell(_ cell: FeedCell, wantsToShowProfileFor uid: String)
+    func didTapUserName()
+    func didTapLike(_ cell: FeedCell, post: PostData)
+    func didTapComment(_ cell: FeedCell, post: PostData)
 }
 
 class FeedCell: UICollectionViewCell {
@@ -30,7 +30,7 @@ class FeedCell: UICollectionViewCell {
         iv.isUserInteractionEnabled = true
         iv.backgroundColor = .lightGray
         
-        let tap = UITapGestureRecognizer(target: self, action: #selector(showUserProfile))
+        let tap = UITapGestureRecognizer(target: self, action: #selector(didTapUserName))
         iv.isUserInteractionEnabled = true
         iv.addGestureRecognizer(tap)
         iv.image = UIImage(named: "Faker")
@@ -41,11 +41,11 @@ class FeedCell: UICollectionViewCell {
         let bt = UIButton(type: .system)
         bt.setTitleColor(.black, for: .normal)
         bt.titleLabel?.font = UIFont.boldSystemFont(ofSize: 13)
-        bt.addTarget(self, action: #selector(showUserProfile), for: .touchUpInside)
+        bt.addTarget(self, action: #selector(didTapUserName), for: .touchUpInside)
         return bt
     }()
     
-    var PostImageView: UIImageView = {
+    var postImageView: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFill
         iv.clipsToBounds = true
@@ -117,12 +117,12 @@ class FeedCell: UICollectionViewCell {
             make.left.equalTo(profileImageView.snp.right).offset(8)
         }
         
-        addSubview(PostImageView)
-        PostImageView.snp.makeConstraints { make in
+        addSubview(postImageView)
+        postImageView.snp.makeConstraints { make in
             make.top.equalTo(profileImageView.snp.bottom).offset(8)
             make.left.right.equalToSuperview()
         }
-        PostImageView.heightAnchor.constraint(equalTo: widthAnchor, multiplier: 1).isActive = true
+        postImageView.heightAnchor.constraint(equalTo: widthAnchor, multiplier: 1).isActive = true
         
         configureActionButtons()
         
@@ -151,19 +151,16 @@ class FeedCell: UICollectionViewCell {
     
     // MARK: Action
     
-    @objc func showUserProfile() {
-        guard let viewModel = viewModel else { return }
-        //delegate?.cell(self, wantsToShowProfileFor: viewModel.post.ownerUid)
-    }
-    
-    @objc func didTapComments() {
-        guard let viewModel = viewModel else { return }
-        //delegate?.cell(self, wantsToShowCommentsFor: viewModel.post)
+    @objc func didTapUserName() {
+        //delegate?.didTapUserName(self, uid: viewModel.post.ownerUid)
     }
     
     @objc func didTapLike() {
-        guard let viewModel = viewModel else { return }
-        //delegate?.cell(self, didLike: viewModel.post)
+        //delegate?.didTapLike(self, post: viewModel.post)
+    }
+    
+    @objc func didTapComments() {
+        //delegate?.didTapComment(self, post: viewModel.post)
     }
     
     // MARK: Helper
@@ -191,7 +188,7 @@ class FeedCell: UICollectionViewCell {
         
         addSubview(buttonStackView)
         buttonStackView.snp.makeConstraints { make in
-            make.top.equalTo(PostImageView.snp.bottom)
+            make.top.equalTo(postImageView.snp.bottom)
             make.left.equalToSuperview()
             make.width.equalTo(120)
             make.height.equalTo(50)

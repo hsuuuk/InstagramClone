@@ -20,6 +20,8 @@ class ProfileController: UIViewController {
     
     lazy var collectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.minimumLineSpacing = 3
+        flowLayout.minimumInteritemSpacing = 3
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.dataSource = self
@@ -29,6 +31,8 @@ class ProfileController: UIViewController {
         
         return collectionView
     }()
+    
+    lazy var profileNavigationView = ProfileNavigationView(userName: user.userName)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,13 +59,19 @@ class ProfileController: UIViewController {
             make.top.left.right.bottom.equalTo(view.safeAreaLayoutGuide)
         }
         
-        navigationItem.title = user.userName
+        //navigationItem.title = user.userName
+        navigationItem.titleView = profileNavigationView
+        
+        let appearance = UINavigationBarAppearance()
+        appearance.backgroundColor = .white
+        appearance.shadowColor = .clear
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
     }
     
     func getPost() {
         FirestoreManager.getPost(uid: user.uid) { posts in
             self.posts = posts
-            print(self.posts.count)
         }
     }
 }
@@ -86,14 +96,6 @@ extension ProfileController: UICollectionViewDataSource {
 }
 
 extension ProfileController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 3
-    }
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 3
-    }
-
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = (view.frame.width - 6) / 3
         return CGSize(width: width, height: width)

@@ -76,5 +76,44 @@ class FirestoreManager {
         }
     }
  
+    // 좋아요
+    static func likePost(post: PostData, completion: @escaping () -> ()) {
+        COLLECTION_post.document(post.postId).updateData(["likes": post.likes + 1])
+        
+        COLLECTION_post.document(post.postId).collection("who-likes").document(post.uid).setData([:]) { error in
+            COLLECTION_user.document(post.uid).collection("which-likes").document(post.postId).setData([:]) { error in
+                if let error = error {
+                    print(error.localizedDescription)
+                } else {
+                    completion()
+                }
+            }
+        }
+    }
+    
+    // 좋아요 취소
+    static func unlikePost(post: PostData, completion: @escaping () -> ()) {
+        guard post.likes > 0 else { return }
+        
+        COLLECTION_post.document(post.postId).updateData(["likes": post.likes - 1])
+        
+        COLLECTION_post.document(post.postId).collection("who-likes").document(post.uid).delete { error in
+            COLLECTION_user.document(post.uid).collection("which-likes").document(post.postId).delete { error in
+                if let error = error {
+                    print(error.localizedDescription)
+                } else {
+                    completion()
+                }
+            }
+        }
+    }
+    
+    // 좋아요 확인
+    static func checkUserLikedPost(post: PostData, completion: @escaping (Bool) -> ()) {
+        COLLECTION_post.document(post.uid).collection("which-likes").document(post.postId).getDocument { querySnapshot, error in
+            guard let didLike = querySnapshot?.exists else { return }
+            completion(didLike)
+        }
+    }
 }
 

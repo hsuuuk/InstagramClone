@@ -9,12 +9,52 @@ import UIKit
 import FirebaseAuth
 import Kingfisher
 
+extension FeedController: FeedCellDelegate {
+    func didTapUserName() {
+        FirestoreManager.getUser(uid: user.uid) { user in
+            let controller = ProfileController(user: user)
+            self.navigationController?.pushViewController(controller, animated: true)
+            self.navigationController?.navigationBar.tintColor = .black
+            self.navigationController?.navigationBar.topItem?.title = ""
+        }
+    }
+    
+    func didTapLike(_ cell: FeedCell, post: PostData) {
+//        guard let tab = tabBarController as? MainTabController else { return }
+//        guard let currentUser = tab.user else { return }
+//
+//        cell.viewModel?.post.didLike.toggle()
+//
+//        if post.didLike {
+//            PostService.unlikePost(post: post) { error in
+//                cell.likeButton.setImage(#imageLiteral(resourceName: "like_unselected"), for: .normal)
+//                cell.likeButton.tintColor = .black
+//                cell.viewModel?.post.likes = post.likes - 1
+//            }
+//        } else {
+//            PostService.likePost(post: post) { error in
+//                cell.likeButton.setImage(#imageLiteral(resourceName: "like_selected"), for: .normal)
+//                cell.likeButton.tintColor = .red
+//                cell.viewModel?.post.likes = post.likes + 1
+//
+//                NotificationService.uploadNotification(toUid: post.ownerUid, fromUser: currentUser, type: .like, post: post)
+//            }
+//        }
+    }
+    
+    func didTapComment(_ cell: FeedCell, post: PostData) {
+        let controller = CommentController(user: user, post: post)
+        navigationController?.pushViewController(controller, animated: true)
+    }
+}
+
 private let cellIdentifier = "FeedCell"
 
 class FeedController: UIViewController {
     
 //    private let refresher = UIRefreshControl()
     
+    private var user: UserData
     private var posts = [PostData]() {
         didSet { collectionView.reloadData() }
     }
@@ -30,6 +70,15 @@ class FeedController: UIViewController {
         return collectionView
     }()
     
+    init(user: UserData) {
+        self.user = user
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
@@ -43,6 +92,15 @@ class FeedController: UIViewController {
     func getPosts() {
         FirestoreManager.getPost { posts in
             self.posts = posts
+            // 좋아요 누른 사용자 확인
+            self.posts.forEach { post in
+                FirestoreManager.checkUserLikedPost(post: post) { didLike in
+                    if let index = self.posts.firstIndex(where: { $0.postId == post.postId }) {
+                        self.posts[index].didLike = didLike
+                    }
+                }
+            }
+            
         }
     }
     
@@ -95,7 +153,7 @@ extension FeedController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! FeedCell
         cell.profileImageView.kf.setImage(with: URL(string: posts[indexPath.row].profileImageUrl))
-        cell.PostImageView.kf.setImage(with: URL(string: posts[indexPath.row].imageUrl))
+        cell.postImageView.kf.setImage(with: URL(string: posts[indexPath.row].imageUrl))
         cell.userNameButton.titleLabel?.text = posts[indexPath.row].userName
         cell.captionLable.text = posts[indexPath.row].caption
         cell.userNameButton.setTitle(posts[indexPath.row].userName, for: .normal)

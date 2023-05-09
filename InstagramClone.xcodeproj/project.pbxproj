@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		8F1C969E2A0905B400128800 /* Typealias.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1C969D2A0905B400128800 /* Typealias.swift */; };
 		8F1C96A02A09090800128800 /* PostData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1C969F2A09090800128800 /* PostData.swift */; };
+		8F1C96A22A09D8B100128800 /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1C96A12A09D8B100128800 /* SearchCell.swift */; };
+		8F1C96A42A09DD7000128800 /* ProfileNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1C96A32A09DD7000128800 /* ProfileNavigationView.swift */; };
+		8F1C96A62A09FCDA00128800 /* CommentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1C96A52A09FCDA00128800 /* CommentData.swift */; };
+		8F1C96A82A09FDB200128800 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1C96A72A09FDB200128800 /* CommentCell.swift */; };
+		8F1C96AA2A09FEFA00128800 /* CommentInputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1C96A92A09FEFA00128800 /* CommentInputAccessoryView.swift */; };
 		8F9B3D9C2A08D80F0058EFF4 /* UploadPostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9B3D9B2A08D80F0058EFF4 /* UploadPostController.swift */; };
 		8F9B3D9E2A08D8290058EFF4 /* CommentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9B3D9D2A08D8290058EFF4 /* CommentController.swift */; };
 		8F9B3DA02A08D8C30058EFF4 /* InputTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9B3D9F2A08D8C30058EFF4 /* InputTextView.swift */; };
@@ -59,6 +64,11 @@
 /* Begin PBXFileReference section */
 		8F1C969D2A0905B400128800 /* Typealias.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typealias.swift; sourceTree = "<group>"; };
 		8F1C969F2A09090800128800 /* PostData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostData.swift; sourceTree = "<group>"; };
+		8F1C96A12A09D8B100128800 /* SearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
+		8F1C96A32A09DD7000128800 /* ProfileNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileNavigationView.swift; sourceTree = "<group>"; };
+		8F1C96A52A09FCDA00128800 /* CommentData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentData.swift; sourceTree = "<group>"; };
+		8F1C96A72A09FDB200128800 /* CommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
+		8F1C96A92A09FEFA00128800 /* CommentInputAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentInputAccessoryView.swift; sourceTree = "<group>"; };
 		8F9B3D9B2A08D80F0058EFF4 /* UploadPostController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadPostController.swift; sourceTree = "<group>"; };
 		8F9B3D9D2A08D8290058EFF4 /* CommentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentController.swift; sourceTree = "<group>"; };
 		8F9B3D9F2A08D8C30058EFF4 /* InputTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTextView.swift; sourceTree = "<group>"; };
@@ -177,8 +187,12 @@
 			children = (
 				8FC80CF729ECD90000FA9D9D /* ProfileCell.swift */,
 				8FC80CF929ECD92200FA9D9D /* ProfileHeader.swift */,
+				8F1C96A32A09DD7000128800 /* ProfileNavigationView.swift */,
 				8FC80D0029ECF2D800FA9D9D /* FeedCell.swift */,
 				8FC80D0529ED035800FA9D9D /* UserCell.swift */,
+				8F1C96A12A09D8B100128800 /* SearchCell.swift */,
+				8F1C96A72A09FDB200128800 /* CommentCell.swift */,
+				8F1C96A92A09FEFA00128800 /* CommentInputAccessoryView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -201,6 +215,7 @@
 				8FC80D0929ED04EB00FA9D9D /* Post.swift */,
 				8F9B3DA92A08E2330058EFF4 /* UserData.swift */,
 				8F1C969F2A09090800128800 /* PostData.swift */,
+				8F1C96A52A09FCDA00128800 /* CommentData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -331,6 +346,7 @@
 			files = (
 				8F9B3D9C2A08D80F0058EFF4 /* UploadPostController.swift in Sources */,
 				8FC80D3D29ED2F7300FA9D9D /* Extension.swift in Sources */,
+				8F1C96A62A09FCDA00128800 /* CommentData.swift in Sources */,
 				8F9B3DAA2A08E2330058EFF4 /* UserData.swift in Sources */,
 				8FC80D0429ED013000FA9D9D /* User.swift in Sources */,
 				8FC80CFF29ECDB7200FA9D9D /* PostViewModel.swift in Sources */,
@@ -347,10 +363,13 @@
 				8FC80CF129ECD82D00FA9D9D /* NotificationController.swift in Sources */,
 				8FC80D3829ED2D2300FA9D9D /* RegistrationController.swift in Sources */,
 				8FC80CD529ECD40400FA9D9D /* SceneDelegate.swift in Sources */,
+				8F1C96A82A09FDB200128800 /* CommentCell.swift in Sources */,
 				8FC80D0629ED035800FA9D9D /* UserCell.swift in Sources */,
 				8FC80D3629ED2D1900FA9D9D /* LoginController.swift in Sources */,
 				8FC80D0129ECF2D800FA9D9D /* FeedCell.swift in Sources */,
 				8F9B3D9E2A08D8290058EFF4 /* CommentController.swift in Sources */,
+				8F1C96A42A09DD7000128800 /* ProfileNavigationView.swift in Sources */,
+				8F1C96AA2A09FEFA00128800 /* CommentInputAccessoryView.swift in Sources */,
 				8FC80D0F29ED07CA00FA9D9D /* PostService.swift in Sources */,
 				8FC80CEF29ECD81800FA9D9D /* ImageSelectorController.swift in Sources */,
 				8FC80CF829ECD90000FA9D9D /* ProfileCell.swift in Sources */,
@@ -360,6 +379,7 @@
 				8F1C969E2A0905B400128800 /* Typealias.swift in Sources */,
 				8FC80D3F29ED322800FA9D9D /* CustomTextField.swift in Sources */,
 				8FC80D4529ED402B00FA9D9D /* MainTabController.swift in Sources */,
+				8F1C96A22A09D8B100128800 /* SearchCell.swift in Sources */,
 				8FC80CFA29ECD92200FA9D9D /* ProfileHeader.swift in Sources */,
 				8FC80D0829ED045500FA9D9D /* UserViewModel.swift in Sources */,
 				8FC80CF329ECD83800FA9D9D /* ProfileController.swift in Sources */,
