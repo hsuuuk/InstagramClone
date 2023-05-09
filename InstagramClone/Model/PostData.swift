@@ -11,9 +11,9 @@ struct PostData {
     var caption: String
     var likes: Int
     var imageUrl: String
-    var uid: String
     var date: Date
     var postId: String
+    var uid: String
     var profileImageUrl: String
     var userName: String
     
@@ -24,8 +24,8 @@ struct PostData {
         self.caption = data["caption"] as? String ?? ""
         self.likes = data["likes"] as? Int ?? 0
         self.imageUrl = data["imageUrl"] as? String ?? ""
-        self.uid = data["uid"] as? String ?? ""
         self.date = data["date"] as? Date ?? Date()
+        self.uid = data["uid"] as? String ?? ""
         self.profileImageUrl = data["profileImageUrl"] as? String ?? ""
         self.userName = data["userName"] as? String ?? ""
     }

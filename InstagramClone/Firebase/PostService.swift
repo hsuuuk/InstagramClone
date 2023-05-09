@@ -16,12 +16,12 @@ class PostService {
         ImageUploader.imageUpload(image: image) { imageUrl in
             let data = ["caption": caption, "timestamp": Date(), "likes": 0, "imageUrl": imageUrl, "ownerUid": uid, "ownerImageUrl": user.profileImageUrl, "ownerUsername": user.userName] as [String: Any]
             
-            COLLECTION_POSTS.addDocument(data: data, completion: completion)
+            COLLECTION_post.addDocument(data: data, completion: completion)
         }
     }
     
     static func fetchPosts(completion: @escaping ([Post]) -> Void) {
-        COLLECTION_POSTS.order(by: "timestamp", descending: true).getDocuments { snapshot, error in
+        COLLECTION_post.order(by: "timestamp", descending: true).getDocuments { snapshot, error in
             guard let documents = snapshot?.documents else { return }
             
             let posts = documents.map({ Post(postId: $0.documentID, dictionary: $0.data()) })
@@ -30,7 +30,7 @@ class PostService {
     }
     
     static func fetchPosts(forUsers uid: String, completion: @escaping ([Post]) -> Void) {
-        COLLECTION_POSTS.whereField("ownerUid", isEqualTo: uid).getDocuments { snapshot, error in
+        COLLECTION_post.whereField("ownerUid", isEqualTo: uid).getDocuments { snapshot, error in
             guard let documents = snapshot?.documents else { return }
             
             var posts = documents.map({ Post(postId: $0.documentID, dictionary: $0.data()) })
@@ -44,7 +44,7 @@ class PostService {
     }
     
     static func fetchPost(withPostId postId: String, completion: @escaping (Post) -> Void) {
-        COLLECTION_POSTS.document(postId).getDocument { snapshot, error in
+        COLLECTION_post.document(postId).getDocument { snapshot, error in
             guard let snapshot = snapshot else { return }
             guard let data = snapshot.data() else { return }
             let post = Post(postId: snapshot.documentID, dictionary: data)
@@ -55,10 +55,10 @@ class PostService {
     static func likePost(post: Post, completion: @escaping (FirestoreCompletion)) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         
-        COLLECTION_POSTS.document(post.postId).updateData(["likes": post.likes + 1])
+        COLLECTION_post.document(post.postId).updateData(["likes": post.likes + 1])
         
-        COLLECTION_POSTS.document(post.postId).collection("post-likes").document(uid).setData([:]) { error in
-            COLLECTION_USER.document(uid).collection("user-likes").document(post.postId).setData([:], completion: completion)
+        COLLECTION_post.document(post.postId).collection("post-likes").document(uid).setData([:]) { error in
+            COLLECTION_user.document(uid).collection("user-likes").document(post.postId).setData([:], completion: completion)
         }
     }
     
@@ -66,17 +66,17 @@ class PostService {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         guard post.likes > 0 else { return }
         
-        COLLECTION_POSTS.document(post.postId).updateData(["likes": post.likes - 1])
+        COLLECTION_post.document(post.postId).updateData(["likes": post.likes - 1])
         
-        COLLECTION_POSTS.document(post.postId).collection("post-likes").document(uid).delete { error in
-            COLLECTION_USER.document(uid).collection("user-likes").document(post.postId).delete(completion: completion)
+        COLLECTION_post.document(post.postId).collection("post-likes").document(uid).delete { error in
+            COLLECTION_user.document(uid).collection("user-likes").document(post.postId).delete(completion: completion)
         }
     }
     
     static func checkIfUserLikedPost(post: Post, completion: @escaping (Bool) -> Void) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         
-        COLLECTION_USER.document(uid).collection("user-likes").document(post.postId).getDocument { snapshot, error in
+        COLLECTION_user.document(uid).collection("user-likes").document(post.postId).getDocument { snapshot, error in
             guard let didLike = snapshot?.exists else { return }
             completion(didLike)
         }

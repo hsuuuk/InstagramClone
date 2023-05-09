@@ -12,9 +12,7 @@ import YPImagePicker
 class MainTabController: UITabBarController {
     
     // MARK: - Properties
-    
-    let firestoreManager = FirestoreManager.shared
-    
+        
     var user: UserData? {
         didSet {
             guard let user = user else { return }
@@ -38,7 +36,7 @@ class MainTabController: UITabBarController {
 //            self.user = user
 //        }
         
-        firestoreManager.getUser(uid: uid) { userData in
+        FirestoreManager.getUser(uid: uid) { userData in
             self.user = userData
         }
     }

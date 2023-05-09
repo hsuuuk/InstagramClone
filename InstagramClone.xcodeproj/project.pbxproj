@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8F1C969C2A09032700128800 /* PostManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1C969B2A09032700128800 /* PostManager.swift */; };
 		8F1C969E2A0905B400128800 /* Typealias.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1C969D2A0905B400128800 /* Typealias.swift */; };
 		8F1C96A02A09090800128800 /* PostData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1C969F2A09090800128800 /* PostData.swift */; };
 		8F9B3D9C2A08D80F0058EFF4 /* UploadPostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9B3D9B2A08D80F0058EFF4 /* UploadPostController.swift */; };
@@ -15,7 +14,7 @@
 		8F9B3DA02A08D8C30058EFF4 /* InputTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9B3D9F2A08D8C30058EFF4 /* InputTextView.swift */; };
 		8F9B3DA32A08DBEA0058EFF4 /* JGProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 8F9B3DA22A08DBEA0058EFF4 /* JGProgressHUD */; };
 		8F9B3DA62A08DC610058EFF4 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 8F9B3DA52A08DC610058EFF4 /* Kingfisher */; };
-		8F9B3DA82A08E22B0058EFF4 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9B3DA72A08E22B0058EFF4 /* FirebaseManager.swift */; };
+		8F9B3DA82A08E22B0058EFF4 /* FirestoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9B3DA72A08E22B0058EFF4 /* FirestoreManager.swift */; };
 		8F9B3DAA2A08E2330058EFF4 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9B3DA92A08E2330058EFF4 /* UserData.swift */; };
 		8FC80CD329ECD40400FA9D9D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC80CD229ECD40400FA9D9D /* AppDelegate.swift */; };
 		8FC80CD529ECD40400FA9D9D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC80CD429ECD40400FA9D9D /* SceneDelegate.swift */; };
@@ -58,13 +57,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		8F1C969B2A09032700128800 /* PostManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostManager.swift; sourceTree = "<group>"; };
 		8F1C969D2A0905B400128800 /* Typealias.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typealias.swift; sourceTree = "<group>"; };
 		8F1C969F2A09090800128800 /* PostData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostData.swift; sourceTree = "<group>"; };
 		8F9B3D9B2A08D80F0058EFF4 /* UploadPostController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadPostController.swift; sourceTree = "<group>"; };
 		8F9B3D9D2A08D8290058EFF4 /* CommentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentController.swift; sourceTree = "<group>"; };
 		8F9B3D9F2A08D8C30058EFF4 /* InputTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTextView.swift; sourceTree = "<group>"; };
-		8F9B3DA72A08E22B0058EFF4 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
+		8F9B3DA72A08E22B0058EFF4 /* FirestoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreManager.swift; sourceTree = "<group>"; };
 		8F9B3DA92A08E2330058EFF4 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		8FC80CCF29ECD40400FA9D9D /* InstagramClone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InstagramClone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FC80CD229ECD40400FA9D9D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -146,8 +144,6 @@
 				8FC80D0D29ED07A200FA9D9D /* Firebase */,
 				8FC80D0229ED012C00FA9D9D /* Model */,
 				8FC80CF529ECD8DD00FA9D9D /* View */,
-				8FC80D0029ECF2D800FA9D9D /* FeedCell.swift */,
-				8FC80D0529ED035800FA9D9D /* UserCell.swift */,
 				8FC80CF429ECD8C900FA9D9D /* Controller */,
 				8FC80CFB29ECDB3900FA9D9D /* ViewModel */,
 				8FC80D3B29ED2F6300FA9D9D /* Utils */,
@@ -179,18 +175,12 @@
 		8FC80CF529ECD8DD00FA9D9D /* View */ = {
 			isa = PBXGroup;
 			children = (
-				8FC80CF629ECD8E400FA9D9D /* Profile */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		8FC80CF629ECD8E400FA9D9D /* Profile */ = {
-			isa = PBXGroup;
-			children = (
 				8FC80CF729ECD90000FA9D9D /* ProfileCell.swift */,
 				8FC80CF929ECD92200FA9D9D /* ProfileHeader.swift */,
+				8FC80D0029ECF2D800FA9D9D /* FeedCell.swift */,
+				8FC80D0529ED035800FA9D9D /* UserCell.swift */,
 			);
-			path = Profile;
+			path = View;
 			sourceTree = "<group>";
 		};
 		8FC80CFB29ECDB3900FA9D9D /* ViewModel */ = {
@@ -222,8 +212,7 @@
 				8FC80D4029ED333300FA9D9D /* AuthService.swift */,
 				8FC80D1029ED07D800FA9D9D /* UserService.swift */,
 				8FC80D0E29ED07CA00FA9D9D /* PostService.swift */,
-				8F9B3DA72A08E22B0058EFF4 /* FirebaseManager.swift */,
-				8F1C969B2A09032700128800 /* PostManager.swift */,
+				8F9B3DA72A08E22B0058EFF4 /* FirestoreManager.swift */,
 			);
 			path = Firebase;
 			sourceTree = "<group>";
@@ -349,10 +338,9 @@
 				8FC80D3A29ED2D3E00FA9D9D /* AuthenticationViewModelViewModel.swift in Sources */,
 				8FC80D1129ED07D800FA9D9D /* UserService.swift in Sources */,
 				8F9B3DA02A08D8C30058EFF4 /* InputTextView.swift in Sources */,
-				8F1C969C2A09032700128800 /* PostManager.swift in Sources */,
 				8FC80CED29ECD80500FA9D9D /* SearchController.swift in Sources */,
 				8FC80D1329ED07EE00FA9D9D /* ImageUploader.swift in Sources */,
-				8F9B3DA82A08E22B0058EFF4 /* FirebaseManager.swift in Sources */,
+				8F9B3DA82A08E22B0058EFF4 /* FirestoreManager.swift in Sources */,
 				8FC80D4329ED33C600FA9D9D /* Constants.swift in Sources */,
 				8FC80D4129ED333300FA9D9D /* AuthService.swift in Sources */,
 				8FC80CD329ECD40400FA9D9D /* AppDelegate.swift in Sources */,

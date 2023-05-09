@@ -14,7 +14,9 @@ private let headerIdentifier = "ProfileHeader"
 class ProfileController: UIViewController {
     
     private var user: UserData
-    private var posts = [Post]()
+    private var posts = [PostData]() {
+        didSet { collectionView.reloadData() }
+    }
     
     lazy var collectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
@@ -31,7 +33,7 @@ class ProfileController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
-        navigationItem.title = user.userName
+        getPost()
     }
     
     init(user: UserData) {
@@ -48,17 +50,26 @@ class ProfileController: UIViewController {
         collectionView.snp.makeConstraints { make in
             make.top.left.right.bottom.equalTo(view.safeAreaLayoutGuide)
         }
+        
+        navigationItem.title = user.userName
+    }
+    
+    func getPost() {
+        FirestoreManager.getPost(uid: user.uid) { posts in
+            self.posts = posts
+            print(self.posts.count)
+        }
     }
 }
 
 extension ProfileController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return posts.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! ProfileCell
-        cell.backgroundColor = .orange
+        cell.postImageView.kf.setImage(with: URL(string: posts[indexPath.row].imageUrl))
         return cell
     }
     

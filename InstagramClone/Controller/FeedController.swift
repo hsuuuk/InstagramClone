@@ -7,12 +7,17 @@
 
 import UIKit
 import FirebaseAuth
+import Kingfisher
 
 private let cellIdentifier = "FeedCell"
 
 class FeedController: UIViewController {
     
 //    private let refresher = UIRefreshControl()
+    
+    private var posts = [PostData]() {
+        didSet { collectionView.reloadData() }
+    }
 
     lazy var collectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
@@ -28,6 +33,13 @@ class FeedController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
+        getPosts()
+    }
+    
+    func getPosts() {
+        FirestoreManager.getPost { posts in
+            self.posts = posts
+        }
     }
     
     func setupLayout() {
@@ -73,11 +85,16 @@ class FeedController: UIViewController {
 
 extension FeedController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return posts.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! FeedCell
+        cell.profileImageView.kf.setImage(with: URL(string: posts[indexPath.row].profileImageUrl))
+        cell.PostImageView.kf.setImage(with: URL(string: posts[indexPath.row].imageUrl))
+        cell.userNameButton.titleLabel?.text = posts[indexPath.row].userName
+        cell.captionLable.text = posts[indexPath.row].caption
+        cell.userNameButton.setTitle(posts[indexPath.row].userName, for: .normal)
         return cell
     }
 }

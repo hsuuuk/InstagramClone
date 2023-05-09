@@ -20,7 +20,7 @@ extension UploadPostController {
         
         showLoader(true)
         
-        PostManager.uploadPost(caption: caption, image: image, user: user) {
+        FirestoreManager.addPost(caption: caption, image: image, user: user) {
             self.dismiss(animated: true)
             // 첫번째 탭으로 이동 코드
         }

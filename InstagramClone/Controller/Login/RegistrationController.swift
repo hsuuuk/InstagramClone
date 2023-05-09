@@ -44,7 +44,7 @@ extension RegistrationController {
                         "profileImageUrl": imageUrl
                     ]
                     
-                    COLLECTION_USER.document(uid).setData(data)
+                    COLLECTION_user.document(uid).setData(data)
                     
                     print("create success")
                     self.delegate?.loginComplete()

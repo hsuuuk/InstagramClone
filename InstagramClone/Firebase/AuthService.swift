@@ -37,7 +37,7 @@ struct AuthServie {
                                            "userName": credentials.username, "profileImageUrl": imageUrl,
                                            "uid": uid]
                 
-                COLLECTION_USER.document(uid).setData(data, completion: completion)
+                COLLECTION_user.document(uid).setData(data, completion: completion)
             }
         }
     }

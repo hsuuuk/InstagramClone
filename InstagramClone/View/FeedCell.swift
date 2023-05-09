@@ -23,7 +23,7 @@ class FeedCell: UICollectionViewCell {
     
     weak var delegate: FeedCellDelegate?
     
-    private lazy var profileImageView: UIImageView = {
+    var profileImageView: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFill
         iv.clipsToBounds = true
@@ -37,16 +37,15 @@ class FeedCell: UICollectionViewCell {
         return iv
     }()
     
-    private lazy var userNameButton: UIButton = {
+    lazy var userNameButton: UIButton = {
         let bt = UIButton(type: .system)
         bt.setTitleColor(.black, for: .normal)
         bt.titleLabel?.font = UIFont.boldSystemFont(ofSize: 13)
         bt.addTarget(self, action: #selector(showUserProfile), for: .touchUpInside)
-        bt.setTitle("Faker", for: .normal)
         return bt
     }()
     
-    private let PostImageView: UIImageView = {
+    var PostImageView: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFill
         iv.clipsToBounds = true
@@ -55,7 +54,7 @@ class FeedCell: UICollectionViewCell {
         return iv
     }()
     
-    lazy var likeButton: UIButton = {
+    private lazy var likeButton: UIButton = {
         let bt = UIButton(type: .system)
         bt.setImage(#imageLiteral(resourceName: "like_unselected"), for: .normal)
         bt.tintColor = .black
@@ -78,21 +77,21 @@ class FeedCell: UICollectionViewCell {
         return bt
     }()
     
-    private let likeLable: UILabel = {
+    var likeLable: UILabel = {
         let lb = UILabel()
         lb.font = UIFont.boldSystemFont(ofSize: 13)
         lb.text = "좋아요 50개"
         return lb
     }()
     
-    private let captionLable: UILabel = {
+    var captionLable: UILabel = {
         let lb = UILabel()
         lb.font = UIFont.boldSystemFont(ofSize: 14)
         lb.text = "팬이에요."
         return lb
     }()
     
-    private let postTimeLable: UILabel = {
+    var postTimeLable: UILabel = {
         let lb = UILabel()
         lb.text = "1일 전"
         lb.font = UIFont.boldSystemFont(ofSize: 12)
