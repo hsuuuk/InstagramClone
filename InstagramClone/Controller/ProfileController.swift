@@ -33,6 +33,10 @@ class ProfileController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         getPost()
     }
     
