@@ -38,8 +38,7 @@ class CommentController : UIViewController {
     }()
     
     private lazy var commentInputView : CommentInputAccessoryView = {
-        let frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 50)
-        let cv = CommentInputAccessoryView(frame: frame)
+        let cv = CommentInputAccessoryView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 50)) //안됨
         cv.delegate = self
         return cv
     }()
@@ -56,19 +55,20 @@ class CommentController : UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
-        fetchComments()
+        getComment()
     }
     
-    override var inputAccessoryView: UIView? {
-        get { return commentInputView}
-    }
-    
-    override var canBecomeFirstResponder: Bool {
-        return true
-    }
+//    override var inputAccessoryView: UIView? {
+//        get { return commentInputView}
+//    }
+//
+//    override var canBecomeFirstResponder: Bool {
+//        return true
+//    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -82,23 +82,48 @@ class CommentController : UIViewController {
     
      // MARK: - API
     
-    func fetchComments() {
-//        FirestoreManager.getCommnet(post: post.postId) { comment in
-//            self.comments = comment
+    func getComment() {
+        FirestoreManager.getComment(postId: post.postId) { comments in
+            self.comments = comments
+        }
+        
+//        FirestoreManager.getCommentLive(postId: post.postId) { comments in
+//            self.comments = comments
 //        }
     }
     
     // MARK: - Helpers
     
     func setupLayout() {
+        view.addSubview(commentInputView)
+        commentInputView.snp.makeConstraints { make in
+            make.left.right.equalToSuperview()
+            make.bottom.equalToSuperview()
+            make.height.equalTo(80)
+        }
+        
         view.addSubview(collectionView)
         collectionView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.top.left.right.equalToSuperview()
+            make.bottom.equalTo(commentInputView.snp.top)
         }
         
         navigationItem.title = "댓글"
         navigationController?.navigationBar.tintColor = .black
         navigationController?.navigationBar.topItem?.title = ""
+        
+        let appearance = UINavigationBarAppearance()
+        appearance.backgroundColor = .white
+        appearance.shadowColor = .lightGray
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        
+        let rightBarButton = UIBarButtonItem(image: UIImage(systemName: "paperplane"), style: .plain, target: self, action: #selector(rightBarButtonTapped))
+        rightBarButton.tintColor = .black
+        navigationItem.rightBarButtonItem = rightBarButton
+    }
+    
+    @objc func rightBarButtonTapped() {
     }
 }
 
@@ -113,6 +138,7 @@ extension CommentController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! CommentCell
         cell.commentLabel.text = comments[indexPath.row].comment
         cell.profileImageView.kf.setImage(with: URL(string: comments[indexPath.row].profileImageUrl))
+        cell.userNameButton.setTitle(user.userName, for: .normal)
         return cell
     }
 }
@@ -121,41 +147,33 @@ extension CommentController: UICollectionViewDataSource {
 
 extension CommentController : UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        let viewModel = CommentViewModel(comment: comments[indexPath.row])
-//        let height = viewModel.size(forWidth: view.frame.width).height + 32
-//        return CGSize(width: view.frame.width, height: height)
-        return CGSize(width: 100, height: 100)
-    }
-}
-
-// MARK: - UICollectionViewDelegate
-
-extension CommentController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let uid = comments[indexPath.row].uid
-        FirestoreManager.getUser(uid: uid) { user in
-            let controller = ProfileController(user: user)
-            self.navigationController?.pushViewController(controller, animated: true)
-            self.navigationController?.navigationBar.tintColor = .black
-            self.navigationController?.navigationBar.topItem?.title = ""
-        }
+        return CGSize(width: view.frame.width, height: 80)
     }
 }
 
 // MARK: - CommentInputAccessoryViewDelegate
 
 extension CommentController: CommentInputAccessoryViewDelegate {
-    func inputView(_ inputView: CommentInputAccessoryView, wantsToUploadComment comment: String) {
+    func didTapPostButton(_ inputView: CommentInputAccessoryView, commment: String) {
+        FirestoreManager.addComment(comment: commment, postID: post.postId, user: user) {
+            self.showLoader(false)
+            inputView.clearCommentTextView()
+            self.getComment()
+            //NotificationService.uploadNotification(toUid: self.post.ownerUid, fromUser: currentUser, type: .comment, post: self.post)
+        }
+    }
+    
+//    func inputView(_ inputView: CommentInputAccessoryView, wantsToUploadComment comment: String) {
 //        guard let tab = self.tabBarController as? MainTabController else  { return }
 //        guard let currentUser = tab.user else { return }
 //
 //        showLoader(true)
 //
-//        CommentService.uploadComment(comment: comment, postID: post.postId, user: currentUser) { [self] error in
+//        CommentService.uploadComment(comment: comment, postID: post.postId, user: user.uid) { [self] error in
 //            self.showLoader(false)
 //            inputView.clearCommentTextView()
 //
 //            NotificationService.uploadNotification(toUid: self.post.ownerUid, fromUser: currentUser, type: .comment, post: self.post)
 //        }
-    }
+//    }
 }

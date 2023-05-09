@@ -13,8 +13,10 @@ struct CommentData {
     let profileImageUrl : String
     let comment : String
     let date : Date
+    let commentId: String
     
-    init(data : [String : Any]) {
+    init(commentId: String, data : [String : Any]) {
+        self.commentId = commentId
         self.uid = data["uid"] as? String ?? ""
         self.userName = data["userName"] as? String ?? ""
         self.profileImageUrl = data["profileImageUrl"] as? String ?? ""

@@ -85,6 +85,7 @@ class FirestoreManager {
                 if let error = error {
                     print(error.localizedDescription)
                 } else {
+                    print("Success Like")
                     completion()
                 }
             }
@@ -102,6 +103,7 @@ class FirestoreManager {
                 if let error = error {
                     print(error.localizedDescription)
                 } else {
+                    print("Success Unlike")
                     completion()
                 }
             }
@@ -110,10 +112,73 @@ class FirestoreManager {
     
     // 좋아요 확인
     static func checkUserLikedPost(post: PostData, completion: @escaping (Bool) -> ()) {
-        COLLECTION_post.document(post.uid).collection("which-likes").document(post.postId).getDocument { querySnapshot, error in
+        COLLECTION_post.document(post.uid).collection("which-likes").document(post.postId)
+            .getDocument { querySnapshot, error in
             guard let didLike = querySnapshot?.exists else { return }
             completion(didLike)
         }
     }
+    
+    // 코멘트 추가
+    static func addComment(comment: String, postID: String, user: UserData, completion : @escaping () -> ()) {
+        let data : [String : Any] = [
+            "uid" : user.uid,
+            "comment" : comment,
+            "date" : Date(),
+            "userName" : user.userName,
+            "profileImageUrl" : user.profileImageUrl
+        ]
+        
+        COLLECTION_post.document(postID).collection("comments").addDocument(data: data) { error in
+            if let error = error {
+                print(error.localizedDescription)
+            } else {
+                completion()
+            }
+        }
+    }
+    
+    static func deleteComment(postId: String, commentId: String, completion: @escaping () -> ()) {
+        COLLECTION_post.document(postId).collection("comments").document(commentId).delete{ error in
+            if let error = error {
+                print(error.localizedDescription)
+            } else {
+                completion()
+            }
+        }
+    }
+    
+    // 코멘트 패치
+    static func getComment(postId: String, completion: @escaping ([CommentData]) -> ()) {
+        COLLECTION_post.document(postId).collection("comments").order(by: "date", descending: true)
+            .getDocuments { querySnapshot, error in
+            if let error = error {
+                print(error.localizedDescription)
+                return
+            } else {
+                guard let documents = querySnapshot?.documents else { return }
+                var comments = documents.map { CommentData(commentId: $0.documentID, data: $0.data()) }
+                completion(comments)
+            }
+        }
+    }
+    
+    // 코멘트 실시간 업데이트⭐️
+//    static func getCommentLive(postId: String, completion: @escaping ([CommentData]) -> ()) {
+//        COLLECTION_post.document(postId).collection("comments").order(by: "date", descending: true)
+//            .addSnapshotListener { snapshot, error in
+//                if let error = error {
+//                    print(error.localizedDescription)
+//                } else {
+//                    guard let documents = snapshot?.documentChanges else { return }
+//                    let comments = documents.compactMap { change -> CommentData? in
+//                        guard change.type == .added else { return nil }
+//                        let data = change.document.data()
+//                        return CommentData(data: data)
+//                    }
+//                    completion(comments)
+//                }
+//            }
+//    }
 }
 

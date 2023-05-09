@@ -169,12 +169,12 @@
 		8FC80CF429ECD8C900FA9D9D /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				8FC80CEA29ECD7EB00FA9D9D /* FeedController.swift */,
 				8FC80D4429ED402B00FA9D9D /* MainTabController.swift */,
 				8FC80CF229ECD83800FA9D9D /* ProfileController.swift */,
-				8FC80CEA29ECD7EB00FA9D9D /* FeedController.swift */,
+				8F9B3D9D2A08D8290058EFF4 /* CommentController.swift */,
 				8FC80D3429ED2CF500FA9D9D /* Login */,
 				8FC80CEC29ECD80500FA9D9D /* SearchController.swift */,
-				8F9B3D9D2A08D8290058EFF4 /* CommentController.swift */,
 				8FC80CEE29ECD81800FA9D9D /* ImageSelectorController.swift */,
 				8FC80CF029ECD82D00FA9D9D /* NotificationController.swift */,
 				8F9B3D9B2A08D80F0058EFF4 /* UploadPostController.swift */,

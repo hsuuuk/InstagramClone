@@ -10,7 +10,7 @@ import SnapKit
 
 class CommentCell : UICollectionViewCell  {
     
-    var profileImageView : UIImageView = {
+    var profileImageView: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFill
         iv.clipsToBounds = true
@@ -19,10 +19,34 @@ class CommentCell : UICollectionViewCell  {
         return iv
     }()
     
+    lazy var userNameButton: UIButton = {
+        let bt = UIButton(type: .system)
+        bt.setTitleColor(.black, for: .normal)
+        bt.titleLabel?.font = UIFont.boldSystemFont(ofSize: 13)
+        return bt
+    }()
+    
     var commentLabel: UILabel = {
         let lb = UILabel()
+        lb.font = UIFont.systemFont(ofSize: 15, weight: .light)
         lb.numberOfLines = 0
+        lb.lineBreakMode = .byWordWrapping
         return lb
+    }()
+    
+    lazy var replyCommentButton: UIButton = {
+        let bt = UIButton(type: .system)
+        bt.setTitle("답글 달기", for: .normal)
+        bt.setTitleColor(.gray, for: .normal)
+        bt.titleLabel?.font = UIFont.boldSystemFont(ofSize: 13)
+        return bt
+    }()
+    
+    lazy var likeButton: UIButton = {
+        let bt = UIButton(type: .system)
+        bt.setImage(#imageLiteral(resourceName: "like_unselected"), for: .normal)
+        bt.tintColor = .black
+        return bt
     }()
         
     override init(frame: CGRect) {
@@ -37,16 +61,35 @@ class CommentCell : UICollectionViewCell  {
     func setupLayout() {
         addSubview(profileImageView)
         profileImageView.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.left.equalToSuperview().offset(8)
+            make.top.left.equalToSuperview().offset(15)
             make.width.height.equalTo(40)
+        }
+        
+        addSubview(userNameButton)
+        userNameButton.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(10)
+            make.left.equalTo(profileImageView.snp.right).offset(10)
+        }
+        
+        addSubview(likeButton)
+        likeButton.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(30)
+            make.right.equalToSuperview().offset(-40)
+            make.height.equalTo(10)
+            make.width.equalTo(11)
         }
 
         addSubview(commentLabel)
         commentLabel.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.left.equalTo(profileImageView.snp.left).offset(8)
-            make.right.equalToSuperview().offset(-8)
+            make.top.equalTo(userNameButton.snp.bottom)
+            make.left.equalTo(profileImageView.snp.right).offset(10)
+            make.right.equalTo(likeButton.snp.left).offset(-15)
+        }
+        
+        addSubview(replyCommentButton)
+        replyCommentButton.snp.makeConstraints { make in
+            make.top.equalTo(commentLabel.snp.bottom)
+            make.left.equalTo(profileImageView.snp.right).offset(10)
         }
     }
 }

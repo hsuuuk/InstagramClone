@@ -52,17 +52,17 @@ class ProfileNavigationView: UIView {
             make.left.equalToSuperview()
         })
         
-//        addSubview(settingButton)
-//        settingButton.snp.makeConstraints({ make in
-//            make.centerY.equalToSuperview()
-//            make.right.equalToSuperview()
-//        })
-//
-//        addSubview(addPostButton)
-//        addPostButton.snp.makeConstraints({ make in
-//            make.centerY.equalToSuperview()
-//            make.right.equalTo(settingButton.snp.left).offset(-10)
-//        })
+        addSubview(settingButton)
+        settingButton.snp.makeConstraints({ make in
+            make.centerY.equalToSuperview()
+            make.right.equalToSuperview()
+        })
+
+        addSubview(addPostButton)
+        addPostButton.snp.makeConstraints({ make in
+            make.centerY.equalToSuperview()
+            make.right.equalTo(settingButton.snp.left).offset(-10)
+        })
     }
     
     @objc func buttonTapped() {

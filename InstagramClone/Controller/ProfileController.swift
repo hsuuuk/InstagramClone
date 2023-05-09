@@ -59,8 +59,8 @@ class ProfileController: UIViewController {
             make.top.left.right.bottom.equalTo(view.safeAreaLayoutGuide)
         }
         
-        //navigationItem.title = user.userName
-        navigationItem.titleView = profileNavigationView
+        navigationItem.title = user.userName
+        //navigationItem.titleView = profileNavigationView
         
         let appearance = UINavigationBarAppearance()
         appearance.backgroundColor = .white

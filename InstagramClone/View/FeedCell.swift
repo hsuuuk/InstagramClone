@@ -9,8 +9,8 @@ import UIKit
 
 protocol FeedCellDelegate: AnyObject {
     func didTapUserName()
-    func didTapLike(_ cell: FeedCell, post: PostData)
-    func didTapComment(_ cell: FeedCell, post: PostData)
+    func didTapLike(cell: FeedCell)
+    func didTapComment(cell: FeedCell)
 }
 
 class FeedCell: UICollectionViewCell {
@@ -54,7 +54,7 @@ class FeedCell: UICollectionViewCell {
         return iv
     }()
     
-    private lazy var likeButton: UIButton = {
+    lazy var likeButton: UIButton = {
         let bt = UIButton(type: .system)
         bt.setImage(#imageLiteral(resourceName: "like_unselected"), for: .normal)
         bt.tintColor = .black
@@ -80,7 +80,6 @@ class FeedCell: UICollectionViewCell {
     var likeLable: UILabel = {
         let lb = UILabel()
         lb.font = UIFont.boldSystemFont(ofSize: 13)
-        lb.text = "좋아요 50개"
         return lb
     }()
     
@@ -152,15 +151,15 @@ class FeedCell: UICollectionViewCell {
     // MARK: Action
     
     @objc func didTapUserName() {
-        //delegate?.didTapUserName(self, uid: viewModel.post.ownerUid)
+        delegate?.didTapUserName()
     }
     
     @objc func didTapLike() {
-        //delegate?.didTapLike(self, post: viewModel.post)
+        delegate?.didTapLike(cell: self)
     }
     
     @objc func didTapComments() {
-        //delegate?.didTapComment(self, post: viewModel.post)
+        delegate?.didTapComment(cell: self)
     }
     
     // MARK: Helper

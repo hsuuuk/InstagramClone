@@ -8,7 +8,7 @@
 import UIKit
 
 protocol CommentInputAccessoryViewDelegate: AnyObject {
-    func inputView(_ inputView: CommentInputAccessoryView, wantsToUploadComment commment: String)
+    func didTapPostButton(_ inputView: CommentInputAccessoryView, commment: String)
 }
 
 class CommentInputAccessoryView: UIView {
@@ -77,7 +77,7 @@ class CommentInputAccessoryView: UIView {
     // MARK: - Actions
     
     @objc func handlePostTapped() {
-        delegate?.inputView(self, wantsToUploadComment: commentTextView.text)
+        delegate?.didTapPostButton(self, commment: commentTextView.text)
     }
     
     // MARK: - Helpers
