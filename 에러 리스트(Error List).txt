@@ -6,3 +6,5 @@
 #해결
 사진 업로드 후 피드, 프로필 피드 업데이트 안됨
 - viewwillappear에 getpost()
+
+추적하지마라
