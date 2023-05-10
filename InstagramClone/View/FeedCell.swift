@@ -8,7 +8,7 @@
 import UIKit
 
 protocol FeedCellDelegate: AnyObject {
-    func didTapUserName()
+    func didTapUserName(cell: FeedCell)
     func didTapLike(cell: FeedCell)
     func didTapComment(cell: FeedCell)
 }
@@ -16,10 +16,6 @@ protocol FeedCellDelegate: AnyObject {
 class FeedCell: UICollectionViewCell {
     
     // MARK:  Properties
-    
-    var viewModel: PostViewModel? {
-        didSet { configure() }
-    }
     
     weak var delegate: FeedCellDelegate?
     
@@ -41,6 +37,15 @@ class FeedCell: UICollectionViewCell {
         let bt = UIButton(type: .system)
         bt.setTitleColor(.black, for: .normal)
         bt.titleLabel?.font = UIFont.boldSystemFont(ofSize: 13)
+        bt.addTarget(self, action: #selector(didTapUserName), for: .touchUpInside)
+        return bt
+    }()
+    
+    lazy var userNameButtonDown: UIButton = {
+        let bt = UIButton(type: .system)
+        bt.setTitleColor(.black, for: .normal)
+        bt.titleLabel?.font = UIFont.boldSystemFont(ofSize: 13)
+        bt.contentEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: -1, right: 0)
         bt.addTarget(self, action: #selector(didTapUserName), for: .touchUpInside)
         return bt
     }()
@@ -85,7 +90,7 @@ class FeedCell: UICollectionViewCell {
     
     var captionLable: UILabel = {
         let lb = UILabel()
-        lb.font = UIFont.boldSystemFont(ofSize: 14)
+        lb.font = UIFont.systemFont(ofSize: 14)
         lb.text = "팬이에요."
         return lb
     }()
@@ -130,11 +135,17 @@ class FeedCell: UICollectionViewCell {
             make.top.equalTo(likeButton.snp.bottom).offset(-5)
             make.left.equalToSuperview().offset(10)
         }
+        
+        addSubview(userNameButtonDown)
+        userNameButtonDown.snp.makeConstraints { make in
+            make.top.equalTo(likeLable.snp.bottom).offset(5)
+            make.left.equalToSuperview().offset(10)
+        }
 
         addSubview(captionLable)
         captionLable.snp.makeConstraints { make in
             make.top.equalTo(likeLable.snp.bottom).offset(5)
-            make.left.equalToSuperview().offset(10)
+            make.left.equalTo(userNameButtonDown.snp.right).offset(5)
         }
 
         addSubview(postTimeLable)
@@ -151,7 +162,7 @@ class FeedCell: UICollectionViewCell {
     // MARK: Action
     
     @objc func didTapUserName() {
-        delegate?.didTapUserName()
+        delegate?.didTapUserName(cell: self)
     }
     
     @objc func didTapLike() {
@@ -163,22 +174,6 @@ class FeedCell: UICollectionViewCell {
     }
     
     // MARK: Helper
-    
-    func configure() {
-        guard let viewModel = viewModel else { return }
-//        profileImageView.sd_setImage(with: viewModel.userImageUrl)
-//        userNameButton.setTitle(viewModel.username, for: .normal)
-//
-//        PostImageView.sd_setImage(with: viewModel.imageUrl)
-//
-//        likeButton.tintColor = viewModel.likeButtonTintColor
-//        likeButton.setImage(viewModel.likeButtonImage, for: .normal)
-//        likeLable.text = viewModel.likesLableText
-//
-//        captionLable.text = viewModel.caption
-//
-//        postTimeLable.text = viewModel.timestampString
-    }
     
     func configureActionButtons() {
         let buttonStackView = UIStackView(arrangedSubviews: [likeButton, commentButton, shareButton])

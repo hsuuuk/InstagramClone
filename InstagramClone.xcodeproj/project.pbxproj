@@ -33,15 +33,8 @@
 		8FC80CF329ECD83800FA9D9D /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC80CF229ECD83800FA9D9D /* ProfileController.swift */; };
 		8FC80CF829ECD90000FA9D9D /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC80CF729ECD90000FA9D9D /* ProfileCell.swift */; };
 		8FC80CFA29ECD92200FA9D9D /* ProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC80CF929ECD92200FA9D9D /* ProfileHeader.swift */; };
-		8FC80CFD29ECDB4B00FA9D9D /* ProfileHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC80CFC29ECDB4B00FA9D9D /* ProfileHeaderViewModel.swift */; };
-		8FC80CFF29ECDB7200FA9D9D /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC80CFE29ECDB7200FA9D9D /* PostViewModel.swift */; };
 		8FC80D0129ECF2D800FA9D9D /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC80D0029ECF2D800FA9D9D /* FeedCell.swift */; };
-		8FC80D0429ED013000FA9D9D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC80D0329ED013000FA9D9D /* User.swift */; };
 		8FC80D0629ED035800FA9D9D /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC80D0529ED035800FA9D9D /* UserCell.swift */; };
-		8FC80D0829ED045500FA9D9D /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC80D0729ED045500FA9D9D /* UserViewModel.swift */; };
-		8FC80D0A29ED04EB00FA9D9D /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC80D0929ED04EB00FA9D9D /* Post.swift */; };
-		8FC80D0F29ED07CA00FA9D9D /* PostService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC80D0E29ED07CA00FA9D9D /* PostService.swift */; };
-		8FC80D1129ED07D800FA9D9D /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC80D1029ED07D800FA9D9D /* UserService.swift */; };
 		8FC80D1329ED07EE00FA9D9D /* ImageUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC80D1229ED07EE00FA9D9D /* ImageUploader.swift */; };
 		8FC80D2329ED13C900FA9D9D /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 8FC80D2229ED13C900FA9D9D /* FirebaseAuth */; };
 		8FC80D2529ED13C900FA9D9D /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 8FC80D2429ED13C900FA9D9D /* FirebaseDatabase */; };
@@ -53,10 +46,8 @@
 		8FC80D3329ED180500FA9D9D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8FC80D3229ED180500FA9D9D /* GoogleService-Info.plist */; };
 		8FC80D3629ED2D1900FA9D9D /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC80D3529ED2D1900FA9D9D /* LoginController.swift */; };
 		8FC80D3829ED2D2300FA9D9D /* RegistrationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC80D3729ED2D2300FA9D9D /* RegistrationController.swift */; };
-		8FC80D3A29ED2D3E00FA9D9D /* AuthenticationViewModelViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC80D3929ED2D3E00FA9D9D /* AuthenticationViewModelViewModel.swift */; };
 		8FC80D3D29ED2F7300FA9D9D /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC80D3C29ED2F7300FA9D9D /* Extension.swift */; };
 		8FC80D3F29ED322800FA9D9D /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC80D3E29ED322800FA9D9D /* CustomTextField.swift */; };
-		8FC80D4129ED333300FA9D9D /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC80D4029ED333300FA9D9D /* AuthService.swift */; };
 		8FC80D4329ED33C600FA9D9D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC80D4229ED33C600FA9D9D /* Constants.swift */; };
 		8FC80D4529ED402B00FA9D9D /* MainTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC80D4429ED402B00FA9D9D /* MainTabController.swift */; };
 /* End PBXBuildFile section */
@@ -88,23 +79,14 @@
 		8FC80CF229ECD83800FA9D9D /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
 		8FC80CF729ECD90000FA9D9D /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
 		8FC80CF929ECD92200FA9D9D /* ProfileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeader.swift; sourceTree = "<group>"; };
-		8FC80CFC29ECDB4B00FA9D9D /* ProfileHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderViewModel.swift; sourceTree = "<group>"; };
-		8FC80CFE29ECDB7200FA9D9D /* PostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
 		8FC80D0029ECF2D800FA9D9D /* FeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
-		8FC80D0329ED013000FA9D9D /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		8FC80D0529ED035800FA9D9D /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
-		8FC80D0729ED045500FA9D9D /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
-		8FC80D0929ED04EB00FA9D9D /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
-		8FC80D0E29ED07CA00FA9D9D /* PostService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostService.swift; sourceTree = "<group>"; };
-		8FC80D1029ED07D800FA9D9D /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		8FC80D1229ED07EE00FA9D9D /* ImageUploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploader.swift; sourceTree = "<group>"; };
 		8FC80D3229ED180500FA9D9D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8FC80D3529ED2D1900FA9D9D /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		8FC80D3729ED2D2300FA9D9D /* RegistrationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationController.swift; sourceTree = "<group>"; };
-		8FC80D3929ED2D3E00FA9D9D /* AuthenticationViewModelViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModelViewModel.swift; sourceTree = "<group>"; };
 		8FC80D3C29ED2F7300FA9D9D /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		8FC80D3E29ED322800FA9D9D /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
-		8FC80D4029ED333300FA9D9D /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		8FC80D4229ED33C600FA9D9D /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		8FC80D4429ED402B00FA9D9D /* MainTabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -155,7 +137,6 @@
 				8FC80D0229ED012C00FA9D9D /* Model */,
 				8FC80CF529ECD8DD00FA9D9D /* View */,
 				8FC80CF429ECD8C900FA9D9D /* Controller */,
-				8FC80CFB29ECDB3900FA9D9D /* ViewModel */,
 				8FC80D3B29ED2F6300FA9D9D /* Utils */,
 				8FC80CD829ECD40400FA9D9D /* Main.storyboard */,
 				8FC80CDB29ECD40600FA9D9D /* Assets.xcassets */,
@@ -169,15 +150,15 @@
 		8FC80CF429ECD8C900FA9D9D /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				8FC80CF229ECD83800FA9D9D /* ProfileController.swift */,
 				8FC80CEA29ECD7EB00FA9D9D /* FeedController.swift */,
 				8FC80D4429ED402B00FA9D9D /* MainTabController.swift */,
-				8FC80CF229ECD83800FA9D9D /* ProfileController.swift */,
 				8F9B3D9D2A08D8290058EFF4 /* CommentController.swift */,
-				8FC80D3429ED2CF500FA9D9D /* Login */,
+				8F9B3D9B2A08D80F0058EFF4 /* UploadPostController.swift */,
 				8FC80CEC29ECD80500FA9D9D /* SearchController.swift */,
+				8FC80D3429ED2CF500FA9D9D /* Login */,
 				8FC80CEE29ECD81800FA9D9D /* ImageSelectorController.swift */,
 				8FC80CF029ECD82D00FA9D9D /* NotificationController.swift */,
-				8F9B3D9B2A08D80F0058EFF4 /* UploadPostController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -197,22 +178,9 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		8FC80CFB29ECDB3900FA9D9D /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				8FC80D3929ED2D3E00FA9D9D /* AuthenticationViewModelViewModel.swift */,
-				8FC80CFC29ECDB4B00FA9D9D /* ProfileHeaderViewModel.swift */,
-				8FC80CFE29ECDB7200FA9D9D /* PostViewModel.swift */,
-				8FC80D0729ED045500FA9D9D /* UserViewModel.swift */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
 		8FC80D0229ED012C00FA9D9D /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				8FC80D0329ED013000FA9D9D /* User.swift */,
-				8FC80D0929ED04EB00FA9D9D /* Post.swift */,
 				8F9B3DA92A08E2330058EFF4 /* UserData.swift */,
 				8F1C969F2A09090800128800 /* PostData.swift */,
 				8F1C96A52A09FCDA00128800 /* CommentData.swift */,
@@ -224,9 +192,6 @@
 			isa = PBXGroup;
 			children = (
 				8FC80D1229ED07EE00FA9D9D /* ImageUploader.swift */,
-				8FC80D4029ED333300FA9D9D /* AuthService.swift */,
-				8FC80D1029ED07D800FA9D9D /* UserService.swift */,
-				8FC80D0E29ED07CA00FA9D9D /* PostService.swift */,
 				8F9B3DA72A08E22B0058EFF4 /* FirestoreManager.swift */,
 			);
 			path = Firebase;
@@ -348,17 +313,12 @@
 				8FC80D3D29ED2F7300FA9D9D /* Extension.swift in Sources */,
 				8F1C96A62A09FCDA00128800 /* CommentData.swift in Sources */,
 				8F9B3DAA2A08E2330058EFF4 /* UserData.swift in Sources */,
-				8FC80D0429ED013000FA9D9D /* User.swift in Sources */,
-				8FC80CFF29ECDB7200FA9D9D /* PostViewModel.swift in Sources */,
 				8F1C96A02A09090800128800 /* PostData.swift in Sources */,
-				8FC80D3A29ED2D3E00FA9D9D /* AuthenticationViewModelViewModel.swift in Sources */,
-				8FC80D1129ED07D800FA9D9D /* UserService.swift in Sources */,
 				8F9B3DA02A08D8C30058EFF4 /* InputTextView.swift in Sources */,
 				8FC80CED29ECD80500FA9D9D /* SearchController.swift in Sources */,
 				8FC80D1329ED07EE00FA9D9D /* ImageUploader.swift in Sources */,
 				8F9B3DA82A08E22B0058EFF4 /* FirestoreManager.swift in Sources */,
 				8FC80D4329ED33C600FA9D9D /* Constants.swift in Sources */,
-				8FC80D4129ED333300FA9D9D /* AuthService.swift in Sources */,
 				8FC80CD329ECD40400FA9D9D /* AppDelegate.swift in Sources */,
 				8FC80CF129ECD82D00FA9D9D /* NotificationController.swift in Sources */,
 				8FC80D3829ED2D2300FA9D9D /* RegistrationController.swift in Sources */,
@@ -370,18 +330,14 @@
 				8F9B3D9E2A08D8290058EFF4 /* CommentController.swift in Sources */,
 				8F1C96A42A09DD7000128800 /* ProfileNavigationView.swift in Sources */,
 				8F1C96AA2A09FEFA00128800 /* CommentInputAccessoryView.swift in Sources */,
-				8FC80D0F29ED07CA00FA9D9D /* PostService.swift in Sources */,
 				8FC80CEF29ECD81800FA9D9D /* ImageSelectorController.swift in Sources */,
 				8FC80CF829ECD90000FA9D9D /* ProfileCell.swift in Sources */,
 				8FC80CEB29ECD7EB00FA9D9D /* FeedController.swift in Sources */,
-				8FC80D0A29ED04EB00FA9D9D /* Post.swift in Sources */,
-				8FC80CFD29ECDB4B00FA9D9D /* ProfileHeaderViewModel.swift in Sources */,
 				8F1C969E2A0905B400128800 /* Typealias.swift in Sources */,
 				8FC80D3F29ED322800FA9D9D /* CustomTextField.swift in Sources */,
 				8FC80D4529ED402B00FA9D9D /* MainTabController.swift in Sources */,
 				8F1C96A22A09D8B100128800 /* SearchCell.swift in Sources */,
 				8FC80CFA29ECD92200FA9D9D /* ProfileHeader.swift in Sources */,
-				8FC80D0829ED045500FA9D9D /* UserViewModel.swift in Sources */,
 				8FC80CF329ECD83800FA9D9D /* ProfileController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

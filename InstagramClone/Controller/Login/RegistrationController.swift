@@ -55,9 +55,7 @@ extension RegistrationController {
 }
 
 class RegistrationController: UIViewController {
-    
-    private var viewModel = RegistrationViewModel()
-    
+        
     private var profilImage: UIImage?
     
     weak var delegate: LoginDelegate?
@@ -154,18 +152,17 @@ class RegistrationController: UIViewController {
     }
     
     @objc func textDidChange(sender: UITextField) {
-        if sender == emailTextField {
-            viewModel.email = emailTextField.text
-        } else if sender == passwordTextField {
-            viewModel.password = passwordTextField.text
-        } else if sender == fullNameTextField {
-            viewModel.fullname = fullNameTextField.text
-        } else {
-            viewModel.username = userNameTextField.text
-        }
-        
-        signUpButton.backgroundColor = viewModel.buttonBackgroundColor
-        signUpButton.isEnabled = viewModel.formIsValid
+//        if sender == emailTextField {
+//        } else if sender == passwordTextField {
+//            viewModel.password = passwordTextField.text
+//        } else if sender == fullNameTextField {
+//            viewModel.fullname = fullNameTextField.text
+//        } else {
+//            viewModel.username = userNameTextField.text
+//        }
+//
+//        signUpButton.backgroundColor = viewModel.buttonBackgroundColor
+//        signUpButton.isEnabled = viewModel.formIsValid
     }
     
     @objc func handleProfilePhotoSelect() {

@@ -19,9 +19,6 @@ class FeedController: UIViewController {
     private var posts = [PostData]() {
         didSet { collectionView.reloadData() }
     }
-//    private var post: PostData? {
-//        didSet { collectionView.reloadData() }
-//    }
 
     lazy var collectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
@@ -120,10 +117,11 @@ extension FeedController: UICollectionViewDataSource {
         
         cell.profileImageView.kf.setImage(with: URL(string: posts[indexPath.row].profileImageUrl))
         cell.postImageView.kf.setImage(with: URL(string: posts[indexPath.row].imageUrl))
-        cell.userNameButton.titleLabel?.text = posts[indexPath.row].userName
+        cell.userNameButton.setTitle(posts[indexPath.row].userName, for: .normal)
         cell.captionLable.text = posts[indexPath.row].caption
         cell.userNameButton.setTitle(posts[indexPath.row].userName, for: .normal)
         cell.likeLable.text = "좋아요 \(posts[indexPath.row].likes)개"
+        cell.userNameButtonDown.setTitle(posts[indexPath.row].userName, for: .normal)
         
         return cell
     }
@@ -142,8 +140,11 @@ extension FeedController: UICollectionViewDelegateFlowLayout {
 }
 
 extension FeedController: FeedCellDelegate {
-    func didTapUserName() {
-        FirestoreManager.getUser(uid: user.uid) { user in
+    func didTapUserName(cell: FeedCell) {
+        guard let indexPath = collectionView.indexPath(for: cell) else { return }
+        var post = posts[indexPath.row]
+        
+        FirestoreManager.getUser(uid: post.uid) { user in
             let controller = ProfileController(user: user)
             self.navigationController?.pushViewController(controller, animated: true)
             self.navigationController?.navigationBar.tintColor = .black

@@ -9,11 +9,7 @@ import UIKit
 import SnapKit
 
 class ProfileCell: UICollectionViewCell {
-    
-    var viewModel: PostViewModel? {
-        didSet { configure() }
-    }
-    
+
     var postImageView: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFill
@@ -36,10 +32,5 @@ class ProfileCell: UICollectionViewCell {
         postImageView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-    }
-    
-    func configure() {
-        guard let viewModel = viewModel else { return }
-        //postImageView.sd_setImage(with: viewModel.imageUrl)
     }
 }

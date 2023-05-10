@@ -31,8 +31,6 @@ extension LoginController {
 
 class LoginController: UIViewController {
     
-    private var viewModel = LoginViewModel()
-    
     weak var delegate: LoginDelegate?
     
     private let iconImage: UIImageView = {
@@ -148,20 +146,19 @@ class LoginController: UIViewController {
     
     @objc func textDidChange(sender: UITextField) {
         if sender == emailTextField {
-            viewModel.email = sender.text
+            
         } else {
-            viewModel.password = sender.text
+            
         }
-        
         //updateForm()
     }
 }
 
-extension LoginController: FormViewModel {
-    func updateForm() {
-        loginButton.backgroundColor = viewModel.buttonBackgroundColor
-        loginButton.isEnabled = viewModel.formIsValid
-    }
-}
+//extension LoginController: FormViewModel {
+//    func updateForm() {
+//        loginButton.backgroundColor = viewModel.buttonBackgroundColor
+//        loginButton.isEnabled = viewModel.formIsValid
+//    }
+//}
 
 

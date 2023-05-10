@@ -180,5 +180,66 @@ class FirestoreManager {
 //                }
 //            }
 //    }
+    
+    static func follow(uid: String, completion: @escaping () -> ()) {
+        guard let currentUid = Auth.auth().currentUser?.uid else { return }
+        
+        COLLECTION_following.document(currentUid).collection("follwing-who").document(uid)
+            .setData([:]) { error in
+                COLLECTION_followers.document(uid).collection("who-follower").document(currentUid)
+                    .setData([:]) { error in
+                        if let error = error {
+                            print(error.localizedDescription)
+                        } else {
+                            print("Success follow")
+                            completion()
+                        }
+                    }
+            }
+    }
+    
+    static func unfollow(uid: String, completion: @escaping () -> ()) {
+        guard let currentid = Auth.auth().currentUser?.uid else { return }
+        
+        COLLECTION_following.document(currentid).collection("follwing-who").document(uid)
+            .delete { error in
+                COLLECTION_followers.document(uid).collection("who-follower").document(currentid)
+                    .delete { error in
+                        if let error = error {
+                            print(error.localizedDescription)
+                        } else {
+                            print("Success unfollow")
+                            completion()
+                        }
+                        
+                    }
+            }
+    }
+    
+    static func checkUserIsFollowed(uid: String, completion: @escaping (Bool) -> ()) {
+        guard let currentid = Auth.auth().currentUser?.uid else { return }
+        
+        COLLECTION_following.document(currentid).collection("follwing-who").document(uid)
+            .getDocument { querySnapshot, error in
+                guard let isFollowed = querySnapshot?.exists else { return }
+                completion(isFollowed)
+            }
+    }
+    
+    static func getUserStats(uid: String, completion: @escaping (UserStats) -> Void) {
+        COLLECTION_followers.document(uid).collection("who-follower").getDocuments { snapshot, error in
+            let followers = snapshot?.documents.count ?? 0
+            
+            COLLECTION_following.document(uid).collection("follwing-who").getDocuments { snapshot, error in
+                let following = snapshot?.documents.count ?? 0
+                
+                COLLECTION_post.whereField("uid", isEqualTo: uid).getDocuments { snapshot, error in
+                    let posts = snapshot?.documents.count ?? 0
+                    
+                    completion(UserStats(followers: followers, following: following, posts: posts))
+                }
+            }
+        }
+    }
 }
 

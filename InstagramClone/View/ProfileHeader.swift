@@ -7,25 +7,19 @@
 
 import UIKit
 import SnapKit
-//import SDWebImage
 
-//protocol ProfileHeaderDelegate: AnyObject {
-//    func header(_ profilHeader: ProfileHeader, didTapActionButtonFor user: User)
-//}
+protocol FollowButtonDelegate: AnyObject {
+    func didTapFollow(profileHeader: ProfileHeader)
+}
 
 class ProfileHeader: UICollectionReusableView {
     
-    var viewModel: ProfileHeaderViewModel? {
-        didSet { configure() }
-    }
-    
-    //weak var delegate: ProfileHeaderDelegate?
+    weak var delegate: FollowButtonDelegate?
     
     var profileImageView: UIImageView = {
         let iv = UIImageView()
         iv.backgroundColor = .lightGray
         iv.clipsToBounds = true
-        //iv.frame.size = CGSize(width: 80, height: 80)
         iv.layer.cornerRadius = 80 / 2
         return iv
     }()
@@ -38,7 +32,7 @@ class ProfileHeader: UICollectionReusableView {
         return lb
     }()
     
-    private lazy var editProfileFollowButton: UIButton = {
+    lazy var editProfileFollowButton: UIButton = {
         let bt = UIButton(type: .system)
         bt.setTitle("프로필 편집", for: .normal)
         bt.setTitleColor(.black, for: .normal)
@@ -54,7 +48,6 @@ class ProfileHeader: UICollectionReusableView {
         let lb = UILabel()
         lb.numberOfLines = 0
         lb.textAlignment = .center
-        lb.attributedText = attributedStateText(value: 1, lable: "게시물")
         return lb
     }()
     
@@ -62,7 +55,6 @@ class ProfileHeader: UICollectionReusableView {
         let lb = UILabel()
         lb.numberOfLines = 0
         lb.textAlignment = .center
-        lb.attributedText = attributedStateText(value: 1, lable: "팔로워")
         return lb
     }()
     
@@ -70,13 +62,13 @@ class ProfileHeader: UICollectionReusableView {
         let lb = UILabel()
         lb.numberOfLines = 0
         lb.textAlignment = .center
-        lb.attributedText = attributedStateText(value: 1, lable: "팔로잉")
         return lb
     }()
     
     private let gridButton: UIButton = {
         let bt = UIButton(type: .system)
-        bt.setImage(#imageLiteral(resourceName: "grid"), for: .normal)
+        bt.setImage(#imageLiteral(resourceName: "Grid 1"), for: .normal)
+        bt.layer.borderWidth = 1
         return bt
     }()
     
@@ -84,12 +76,13 @@ class ProfileHeader: UICollectionReusableView {
         let bt = UIButton(type: .system)
         bt.setImage(#imageLiteral(resourceName: "list"), for: .normal)
         bt.tintColor = UIColor(white: 0, alpha: 0.2)
+        bt.layer.borderWidth = 1
         return bt
     }()
     
     private let bookmarkButton: UIButton = {
         let bt = UIButton(type: .system)
-        bt.setImage(#imageLiteral(resourceName: "ribbon"), for: .normal)
+        bt.setImage(UIImage(named: "Grid 1"), for: .normal)
         bt.tintColor = UIColor(white: 0, alpha: 0.2)
         return bt
     }()
@@ -104,23 +97,7 @@ class ProfileHeader: UICollectionReusableView {
     }
     
     @objc func handleEditProfileFollowTapped() {
-        //        guard let viewModel = viewModel else { return }
-        //        delegate?.header(self, didTapActionButtonFor: viewModel.user)
-    }
-    
-    func configure() {
-        guard let viewModel = viewModel else { return }
-        
-        //        nameLable.text = viewModel.fullname
-        //        profileImageView.sd_setImage(with: viewModel.profileImageUrl)
-        //
-        //        editProfileFollowButton.setTitle(viewModel.followButtonText, for: .normal)
-        //        editProfileFollowButton.setTitleColor(viewModel.followButtonTextColor, for: .normal)
-        //        editProfileFollowButton.backgroundColor = viewModel.followButtonBackgroundColor
-        //
-        //        postsLable.attributedText = viewModel.numberOfPosts
-        //        followersLable.attributedText = viewModel.numberOfFollwers
-        //        followingsLable.attributedText = viewModel.numberOfFollwing
+        delegate?.didTapFollow(profileHeader: self)
     }
     
     func configureUI() {
@@ -161,7 +138,7 @@ class ProfileHeader: UICollectionReusableView {
         addSubview(buttonStackView)
         buttonStackView.snp.makeConstraints { make in
             make.left.bottom.right.equalToSuperview()
-            make.height.equalTo(50)
+            make.height.equalTo(40)
         }
         
         let topDivider = UIView()

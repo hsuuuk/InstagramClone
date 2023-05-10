@@ -7,13 +7,36 @@
 
 import UIKit
 import Kingfisher
+import Firebase
+
+extension ProfileController: FollowButtonDelegate {
+    func didTapFollow(profileHeader: ProfileHeader) {
+        if user.isCurrentUser {
+            print("프로필 편집")
+        } else if user.isFollowed {
+            FirestoreManager.unfollow(uid: user.uid) {
+                self.user.isFollowed = false
+                self.collectionView.reloadData()
+            }
+        } else {
+            FirestoreManager.follow(uid: user.uid) {
+                self.user.isFollowed = true
+                self.collectionView.reloadData()
+                
+                //NotificationService.uploadNotification(toUid: user.uid, fromUser: currentUser, type: .follow)
+            }
+        }
+    }
+}
 
 private let cellIdentifier = "ProfileCell"
 private let headerIdentifier = "ProfileHeader"
 
 class ProfileController: UIViewController {
     
-    private var user: UserData
+    private var user: UserData {
+        didSet { collectionView.reloadData() }
+    }
     private var posts = [PostData]() {
         didSet { collectionView.reloadData() }
     }
@@ -41,7 +64,7 @@ class ProfileController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        getPost()
+        getData()
     }
     
     init(user: UserData) {
@@ -51,6 +74,30 @@ class ProfileController: UIViewController {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func getData() {
+        getPost()
+        checkUserIsFollowed()
+        getUserStats()
+    }
+    
+    func getPost() {
+        FirestoreManager.getPost(uid: user.uid) { posts in
+            self.posts = posts
+        }
+    }
+    
+    func checkUserIsFollowed() {
+        FirestoreManager.checkUserIsFollowed(uid: user.uid) { isFollowed in
+            self.user.isFollowed = isFollowed
+        }
+    }
+    
+    func getUserStats() {
+        FirestoreManager.getUserStats(uid: user.uid) { userState in
+            self.user.userStats = userState
+        }
     }
     
     func setupLayout() {
@@ -68,12 +115,6 @@ class ProfileController: UIViewController {
         navigationController?.navigationBar.standardAppearance = appearance
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
     }
-    
-    func getPost() {
-        FirestoreManager.getPost(uid: user.uid) { posts in
-            self.posts = posts
-        }
-    }
 }
 
 extension ProfileController: UICollectionViewDataSource {
@@ -89,8 +130,19 @@ extension ProfileController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerIdentifier, for: indexPath) as! ProfileHeader
+        header.delegate = self
         header.nameLabel.text = user.fullName
         header.profileImageView.kf.setImage(with: URL(string: user.profileImageUrl))
+        header.postsLabel.attributedText = header.attributedStateText(value: user.userStats.posts, lable: "게시물")
+        header.followersLable.attributedText = header.attributedStateText(value: user.userStats.followers, lable: "팔로우")
+        header.followingsLable.attributedText = header.attributedStateText(value: user.userStats.following, lable: "팔로잉")
+        
+        if user.isCurrentUser == false {
+            header.editProfileFollowButton.setTitle(user.isFollowed ? "팔로우" : "팔로잉", for: .normal)
+            header.editProfileFollowButton.setTitleColor(user.isFollowed ? .black : .white, for: .normal)
+            header.editProfileFollowButton.backgroundColor = user.isFollowed ? UIColor.systemGray6 : UIColor.systemBlue
+        }
+        
         return header
     }
 }

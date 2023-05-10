@@ -9,13 +9,7 @@ import UIKit
 import SnapKit
 
 class UserCell : UITableViewCell {
-    
-    // MARK: - Properties
 
-    var viewModel: UserViewModel? {
-        didSet { configure() }
-    }
-    
     //MARK: - Properties
     
     private let profileImageView : UIImageView = {
@@ -43,8 +37,7 @@ class UserCell : UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        configureUI()
+        setupLayout()
     }
     
     required init?(coder: NSCoder) {
@@ -53,14 +46,7 @@ class UserCell : UITableViewCell {
     
     // MARK: - Helpers
     
-    func configure() {
-        guard let viewModel = viewModel else { return }
-        //profileImageView.sd_setImage(with: viewModel.profileImageUrl)
-        usernameLabel.text = viewModel.username
-        fullnameLabel.text = viewModel.fullname
-    }
-    
-    func configureUI() {
+    func setupLayout() {
         addSubview(profileImageView)
         profileImageView.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
