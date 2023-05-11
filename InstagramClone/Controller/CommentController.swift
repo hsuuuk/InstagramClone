@@ -32,15 +32,15 @@ class CommentController : UIViewController {
         collectionView.register(CommentCell.self, forCellWithReuseIdentifier: cellIdentifier)
         
         collectionView.alwaysBounceVertical = true
-        collectionView.keyboardDismissMode = .interactive
         
         return collectionView
     }()
     
-    private lazy var commentInputView : CommentInputAccessoryView = {
-        let cv = CommentInputAccessoryView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 50)) //안됨
-        cv.delegate = self
-        return cv
+    private lazy var inputTextView : CommentTextView = {
+        let view = CommentTextView()
+        view.delegate = self
+        view.autoresizingMask = .flexibleHeight
+        return view
     }()
     
     // MARK: - Lifecycle
@@ -58,17 +58,10 @@ class CommentController : UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
         setupLayout()
         getComment()
     }
-    
-//    override var inputAccessoryView: UIView? {
-//        get { return commentInputView}
-//    }
-//
-//    override var canBecomeFirstResponder: Bool {
-//        return true
-//    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -80,32 +73,28 @@ class CommentController : UIViewController {
         tabBarController?.tabBar.isHidden = false
     }
     
+    override var inputAccessoryView: UIView? {
+        get { return inputTextView}
+    }
+    
+    override var canBecomeFirstResponder: Bool {
+        return true
+    }
+    
      // MARK: - API
     
     func getComment() {
         FirestoreManager.getComment(postId: post.postId) { comments in
             self.comments = comments
         }
-        
-//        FirestoreManager.getCommentLive(postId: post.postId) { comments in
-//            self.comments = comments
-//        }
     }
     
     // MARK: - Helpers
     
     func setupLayout() {
-        view.addSubview(commentInputView)
-        commentInputView.snp.makeConstraints { make in
-            make.left.right.equalToSuperview()
-            make.bottom.equalToSuperview()
-            make.height.equalTo(80)
-        }
-        
         view.addSubview(collectionView)
         collectionView.snp.makeConstraints { make in
-            make.top.left.right.equalToSuperview()
-            make.bottom.equalTo(commentInputView.snp.top)
+            make.edges.equalToSuperview()
         }
         
         navigationItem.title = "댓글"
@@ -155,27 +144,11 @@ extension CommentController : UICollectionViewDelegateFlowLayout {
 
 // MARK: - CommentInputAccessoryViewDelegate
 
-extension CommentController: CommentInputAccessoryViewDelegate {
-    func didTapPostButton(_ inputView: CommentInputAccessoryView, commment: String) {
+extension CommentController: TextViewDelegate {
+    func didTapPostButton(inputView: CommentTextView, commment: String) {
         FirestoreManager.addComment(comment: commment, postID: post.postId, user: user) {
-            self.showLoader(false)
-            inputView.clearCommentTextView()
+            inputView.clearTextView()
             self.getComment()
-            //NotificationService.uploadNotification(toUid: self.post.ownerUid, fromUser: currentUser, type: .comment, post: self.post)
         }
     }
-    
-//    func inputView(_ inputView: CommentInputAccessoryView, wantsToUploadComment comment: String) {
-//        guard let tab = self.tabBarController as? MainTabController else  { return }
-//        guard let currentUser = tab.user else { return }
-//
-//        showLoader(true)
-//
-//        CommentService.uploadComment(comment: comment, postID: post.postId, user: user.uid) { [self] error in
-//            self.showLoader(false)
-//            inputView.clearCommentTextView()
-//
-//            NotificationService.uploadNotification(toUid: self.post.ownerUid, fromUser: currentUser, type: .comment, post: self.post)
-//        }
-//    }
 }

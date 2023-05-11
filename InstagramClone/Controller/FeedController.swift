@@ -13,16 +13,12 @@ private let cellIdentifier = "FeedCell"
 
 class FeedController: UIViewController {
     
-//    private let refresher = UIRefreshControl()
-    
     private var user: UserData
-    private var posts = [PostData]() {
-        didSet { collectionView.reloadData() }
-    }
+    private var posts = [PostData]()
     
     let navigationView = FeedNavigationView()
-
-    lazy var collectionView: UICollectionView = {
+    
+    private lazy var collectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
@@ -30,7 +26,15 @@ class FeedController: UIViewController {
         collectionView.delegate = self
         collectionView.register(FeedCell.self, forCellWithReuseIdentifier: cellIdentifier)
         
+        collectionView.refreshControl = refresher
+        
         return collectionView
+    }()
+    
+    private lazy var refresher: UIRefreshControl = {
+        let refresher = UIRefreshControl()
+        refresher.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
+        return refresher
     }()
     
     init(user: UserData) {
@@ -65,15 +69,14 @@ class FeedController: UIViewController {
                 FirestoreManager.checkUserLikedPost(post: post) { didLike in
                     if let index = self.posts.firstIndex(where: { $0.postId == post.postId }) {
                         self.posts[index].didLike = didLike
-                    }
-                }
-                // 댓글 갯수 확인
-                FirestoreManager.getCommentCount(postId: post.postId) { count in
-                    if let index = self.posts.firstIndex(where: { $0.postId == post.postId }) {
-                        self.posts[index].commentCount = count
+                        // 댓글 갯수 확인
+                        FirestoreManager.getCommentCount(postId: post.postId) { count in
+                            self.posts[index].commentCount = count
+                        }
                     }
                 }
             }
+            self.collectionView.reloadData()
         }
     }
     
@@ -89,17 +92,13 @@ class FeedController: UIViewController {
             make.top.equalTo(navigationView.snp.bottom)
             make.left.right.bottom.equalTo(view.safeAreaLayoutGuide)
         }
-        
-//        refresher.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
-//        collectionView.refreshControl = refresher
     }
     
-//    @objc func handleRefresh() {
-//        posts.removeAll()
-//        fetchPosts()
-//        refresher.endRefreshing()
-//        //collectionView.reloadData()
-//    }
+    @objc func handleRefresh() {
+        posts.removeAll()
+        getData()
+        refresher.endRefreshing()
+    }
 }
 
 extension FeedController: UICollectionViewDataSource {
@@ -120,6 +119,14 @@ extension FeedController: UICollectionViewDataSource {
         cell.userNameButtonDown.setTitle(posts[indexPath.row].userName, for: .normal)
         cell.dateLable.text = posts[indexPath.row].date.dateValue().relativeTime()
         
+        if posts[indexPath.row].didLike {
+            cell.likeButton.setImage(UIImage(named: "Like_Selected"), for: .normal)
+            cell.likeButton.tintColor = .red
+        } else {
+            cell.likeButton.setImage(UIImage(named: "Like"), for: .normal)
+            cell.likeButton.tintColor = .black
+        }
+
         if posts[indexPath.row].commentCount == 0 {
             cell.commentButton2.setTitle("댓글 없음", for: .normal)
             cell.commentButton2.isEnabled = false
@@ -156,24 +163,25 @@ extension FeedController: FeedCellDelegate {
         guard let indexPath = collectionView.indexPath(for: cell) else { return }
         var post = posts[indexPath.row]
         
-        print(post.didLike)
-        post.didLike.toggle()
-        print(post.didLike)
-
         if post.didLike {
-            FirestoreManager.likePost(post: post) {
-                cell.likeButton.setImage(UIImage(named: "Like_Selected"), for: .normal)
-                cell.likeButton.tintColor = .red
-                post.likes += 1
-                self.posts[indexPath.row] = post
-                //NotificationService.uploadNotification(toUid: post.ownerUid, fromUser: user, type: .like, post: post)
-            }
-        } else {
+            post.didLike.toggle()
+            
             FirestoreManager.unlikePost(post: post) {
                 cell.likeButton.setImage(UIImage(named: "Like"), for: .normal)
                 cell.likeButton.tintColor = .black
                 post.likes -= 1
                 self.posts[indexPath.row] = post
+                self.collectionView.reloadData()
+            }
+        } else {
+            post.didLike.toggle()
+            
+            FirestoreManager.likePost(post: post) {
+                cell.likeButton.setImage(UIImage(named: "Like_Selected"), for: .normal)
+                cell.likeButton.tintColor = .red
+                post.likes += 1
+                self.posts[indexPath.row] = post
+                self.collectionView.reloadData()
             }
         }
     }

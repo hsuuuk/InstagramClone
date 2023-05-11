@@ -8,17 +8,11 @@
 import UIKit
 import SnapKit
 
-//protocol UploadPostControllerDelegate: AnyObject {
-//    func controllerDidFinishUploadingPost(_ controller: UploadPostController)
-//}
-
 extension UploadController {
     @objc func didTapDone() {
         guard let image = selectedImage else { return }
         guard let caption = captionTextView.text else { return }
         guard let user = currentUser else { return }
-        
-        showLoader(true)
         
         FirestoreManager.addPost(caption: caption, image: image, user: user) {
             self.dismiss(animated: true)
@@ -30,8 +24,6 @@ extension UploadController {
 class UploadController: UIViewController {
     
     // MARK: - Properties
-    
-    //weak var delegate: UploadPostControllerDelegate?
     
     var currentUser: UserData?
     
@@ -47,9 +39,8 @@ class UploadController: UIViewController {
         return iv
     }()
     
-    private lazy var captionTextView: InputTextView = {
-        let tv = InputTextView()
-        tv.placeholderText = "문구 입력..."
+    private lazy var captionTextView: UITextView = {
+        let tv = UITextView()
         tv.font = UIFont.systemFont(ofSize: 16)
         return tv
     }()
@@ -58,24 +49,13 @@ class UploadController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
         setupLayout()
-    }
-    
-    // MARK: - Actions
-    
-    @objc func didTapCancle() {
-        dismiss(animated: true)
     }
 
     // MARK: - Helpers
 
     func setupLayout() {
-        view.backgroundColor = .white
-        
-        navigationItem.title = "새 게시물"
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "취소", style: .done, target: self, action: #selector(didTapCancle))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "공유", style: .done, target: self, action: #selector(didTapDone))
-        
         view.addSubview(photoImageView)
         photoImageView.snp.makeConstraints { make in
             make.height.width.equalTo(180)
@@ -90,6 +70,16 @@ class UploadController: UIViewController {
             make.right.equalToSuperview().offset(-12)
             make.height.equalTo(64)
         }
+        
+        navigationItem.title = "새 게시물"
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "취소", style: .done, target: self, action: #selector(didTapCancle))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "공유", style: .done, target: self, action: #selector(didTapDone))
+    }
+    
+    // MARK: - Actions
+    
+    @objc func didTapCancle() {
+        dismiss(animated: true)
     }
 }
 

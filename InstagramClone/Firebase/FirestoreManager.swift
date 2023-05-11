@@ -85,7 +85,6 @@ class FirestoreManager {
                 if let error = error {
                     print(error.localizedDescription)
                 } else {
-                    print("Success Like")
                     completion()
                 }
             }
@@ -103,7 +102,6 @@ class FirestoreManager {
                 if let error = error {
                     print(error.localizedDescription)
                 } else {
-                    print("Success Unlike")
                     completion()
                 }
             }
@@ -112,7 +110,7 @@ class FirestoreManager {
     
     // 좋아요 확인
     static func checkUserLikedPost(post: PostData, completion: @escaping (Bool) -> ()) {
-        COLLECTION_post.document(post.uid).collection("which-likes").document(post.postId)
+        COLLECTION_user.document(post.uid).collection("which-likes").document(post.postId)
             .getDocument { querySnapshot, error in
             guard let didLike = querySnapshot?.exists else { return }
             completion(didLike)

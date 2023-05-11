@@ -77,28 +77,25 @@ class LoginController: UIViewController {
     private lazy var dontHaveAccountButton: UIButton = {
         let bt = UIButton()
         bt.attributedTitle(firstPart: "계정이 없으신가요?", secondPart: "가입하기")
-        bt.addTarget(self, action: #selector(handleShowSingUp), for: .touchUpInside)
+        bt.addTarget(self, action: #selector(showRegister), for: .touchUpInside)
         return bt
     }()
     
     private lazy var forgotPasswordButton: UIButton = {
         let bt = UIButton()
         bt.attributedTitle(firstPart: "비밀번호를 잊으셨나요?", secondPart: "비밀번호 찾기")
-        //bt.addTarget(self, action: #selector(handleShowSingUp), for: .touchUpInside)
         return bt
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        configureUI()
-        configureNotificationObservers()
         view.backgroundColor = .white
+        setupLayout()
     }
     
-    func configureUI() {
-        navigationController?.navigationBar.isHidden = true
-        navigationController?.navigationBar.barStyle = .black
+    func setupLayout() {
+        //navigationController?.navigationBar.isHidden = true
+        //navigationController?.navigationBar.barStyle = .black
                 
         view.addSubview(iconImage)
         iconImage.snp.makeConstraints { make in
@@ -131,32 +128,10 @@ class LoginController: UIViewController {
         }
     }
     
-    func configureNotificationObservers() {
-        emailTextField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
-        passwordTextField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
-    }
-    
-    @objc func handleShowSingUp() {
-        let controller = RegistrationController()
+    @objc func showRegister() {
+        let controller = RegisterController()
         controller.delegate = delegate
         navigationController?.pushViewController(controller, animated: true)
     }
-    
-    @objc func textDidChange(sender: UITextField) {
-        if sender == emailTextField {
-            
-        } else {
-            
-        }
-        //updateForm()
-    }
 }
-
-//extension LoginController: FormViewModel {
-//    func updateForm() {
-//        loginButton.backgroundColor = viewModel.buttonBackgroundColor
-//        loginButton.isEnabled = viewModel.formIsValid
-//    }
-//}
-
 

@@ -9,24 +9,13 @@ import UIKit
 import SnapKit
 import FirebaseAuth
 
-extension RegistrationController {
-    @objc func handleSignUp() {
+extension RegisterController {
+    @objc func didTapRegister() {
         guard let email = emailTextField.text else { return }
         guard let password = passwordTextField.text else { return }
         guard let fullName = fullNameTextField.text else { return }
         guard let userName = userNameTextField.text else { return }
         guard let profilImage = self.profilImage else { return }
-        
-        //        let credentials = AuthCredentials(email: email, password: password, fullname: fullname, username: username, profileImage: profilImage)
-        //
-        //        AuthServie.registerUser(withCredential: credentials) { error in
-        //            if let error = error {
-        //                print("DEBUG: Failed to register user \(error.localizedDescription)")
-        //                return
-        //            }
-        //
-        //            self.delegate?.authenticationDidComplete()
-        //        }
         
         Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
             if let error = error {
@@ -54,7 +43,7 @@ extension RegistrationController {
     }
 }
 
-class RegistrationController: UIViewController {
+class RegisterController: UIViewController {
         
     private var profilImage: UIImage?
     
@@ -63,23 +52,17 @@ class RegistrationController: UIViewController {
     private let plusPhotoButton: UIButton = {
         let bt = UIButton(type: .system)
         bt.setImage(#imageLiteral(resourceName: "plus_photo"), for: .normal)
+        bt.layer.cornerRadius = 140 / 2
+        bt.layer.borderColor = UIColor.white.cgColor
+        bt.layer.borderWidth = 1
+        bt.layer.masksToBounds = true
         bt.tintColor = .black
-        bt.addTarget(self, action: #selector(handleProfilePhotoSelect), for: .touchUpInside)
+        bt.addTarget(self, action: #selector(didTapProfilePhotoSelector), for: .touchUpInside)
         return bt
     }()
     
-    private let emailTextField: CustomTextField = {
-        let tf = CustomTextField(placeholder: "이메일")
-        //tf.keyboardType = .emailAddress
-        return tf
-    }()
-    
-    private let passwordTextField: CustomTextField = {
-        let tf = CustomTextField(placeholder: "비밀번호")
-        //tf.isSecureTextEntry = true
-        return tf
-    }()
-    
+    private let emailTextField = CustomTextField(placeholder: "이메일")
+    private let passwordTextField = CustomTextField(placeholder: "비밀번호")
     private let fullNameTextField = CustomTextField(placeholder: "이름")
     private let userNameTextField = CustomTextField(placeholder: "사용자 이름")
     
@@ -90,30 +73,24 @@ class RegistrationController: UIViewController {
         bt.backgroundColor = .systemBlue
         bt.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
         bt.layer.cornerRadius = 5
-        bt.snp.makeConstraints { make in
-            make.height.equalTo(50)
-        }
-        bt.addTarget(self, action: #selector(handleSignUp), for: .touchUpInside)
-        //bt.isEnabled = false
+        bt.addTarget(self, action: #selector(didTapRegister), for: .touchUpInside)
         return bt
     }()
     
     private lazy var alreadyHaveAccountButton: UIButton = {
         let bt = UIButton()
         bt.attributedTitle(firstPart: "이미 가입되어 있으신가요?", secondPart: "돌아가기")
-        bt.addTarget(self, action: #selector(handleShowLogIn), for: .touchUpInside)
+        bt.addTarget(self, action: #selector(didTapAlready), for: .touchUpInside)
         return bt
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        configureUI()
-        configureNotificationObservers()
         view.backgroundColor = .white
+        setupLayout()
     }
     
-    func configureUI() {
+    func setupLayout() {
         view.addSubview(plusPhotoButton)
         plusPhotoButton.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
@@ -121,7 +98,7 @@ class RegistrationController: UIViewController {
             make.height.width.equalTo(140)
         }
         
-        let stackView = UIStackView(arrangedSubviews: [emailTextField, passwordTextField, fullNameTextField, userNameTextField, signUpButton])
+        let stackView = UIStackView(arrangedSubviews: [emailTextField, passwordTextField, fullNameTextField, userNameTextField])
         stackView.axis = .vertical
         stackView.spacing = 20
         view.addSubview(stackView)
@@ -129,6 +106,15 @@ class RegistrationController: UIViewController {
             make.top.equalTo(plusPhotoButton.snp.bottom).offset(32)
             make.left.equalToSuperview().offset(32)
             make.right.equalToSuperview().offset(-32)
+        }
+        emailTextField.keyboardType = .emailAddress
+        passwordTextField.isSecureTextEntry = true
+        
+        view.addSubview(signUpButton)
+        signUpButton.snp.makeConstraints { make in
+            make.top.equalTo(stackView.snp.bottom).offset(20)
+            make.centerX.equalToSuperview()
+            make.height.equalTo(50)
         }
         
         view.addSubview(alreadyHaveAccountButton)
@@ -138,52 +124,23 @@ class RegistrationController: UIViewController {
         }
     }
     
-    func configureNotificationObservers() {
-        emailTextField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
-        passwordTextField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
-        fullNameTextField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
-        userNameTextField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
-    }
-    
-    @objc func handleShowLogIn() {
+    @objc func didTapAlready() {
         navigationController?.popViewController(animated: true)
     }
     
-    @objc func textDidChange(sender: UITextField) {
-//        if sender == emailTextField {
-//        } else if sender == passwordTextField {
-//            viewModel.password = passwordTextField.text
-//        } else if sender == fullNameTextField {
-//            viewModel.fullname = fullNameTextField.text
-//        } else {
-//            viewModel.username = userNameTextField.text
-//        }
-//
-//        signUpButton.backgroundColor = viewModel.buttonBackgroundColor
-//        signUpButton.isEnabled = viewModel.formIsValid
-    }
-    
-    @objc func handleProfilePhotoSelect() {
+    @objc func didTapProfilePhotoSelector() {
         let picker = UIImagePickerController()
         picker.delegate = self
         picker.allowsEditing = true
-        
         present(picker, animated: true)
     }
 }
 
-extension RegistrationController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+extension RegisterController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        
         guard let selectedImage = info[.editedImage] as? UIImage else { return }
         profilImage = selectedImage
-        
-        plusPhotoButton.layer.cornerRadius = plusPhotoButton.frame.width / 2
-        plusPhotoButton.layer.masksToBounds = true
-        plusPhotoButton.layer.borderColor = UIColor.white.cgColor
-        plusPhotoButton.layer.borderWidth = 1
         plusPhotoButton.setImage(selectedImage.withRenderingMode(.alwaysOriginal), for: .normal)
-        
         self.dismiss(animated: true)
     }
 }

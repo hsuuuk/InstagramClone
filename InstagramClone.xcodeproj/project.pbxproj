@@ -13,12 +13,10 @@
 		8F1C96A42A09DD7000128800 /* ProfileNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1C96A32A09DD7000128800 /* ProfileNavigationView.swift */; };
 		8F1C96A62A09FCDA00128800 /* CommentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1C96A52A09FCDA00128800 /* CommentData.swift */; };
 		8F1C96A82A09FDB200128800 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1C96A72A09FDB200128800 /* CommentCell.swift */; };
-		8F1C96AA2A09FEFA00128800 /* CommentInputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1C96A92A09FEFA00128800 /* CommentInputAccessoryView.swift */; };
+		8F1C96AA2A09FEFA00128800 /* CommentTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1C96A92A09FEFA00128800 /* CommentTextView.swift */; };
 		8F1C96AC2A0B9AD300128800 /* FeedNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1C96AB2A0B9AD300128800 /* FeedNavigationView.swift */; };
 		8F9B3D9C2A08D80F0058EFF4 /* UploadController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9B3D9B2A08D80F0058EFF4 /* UploadController.swift */; };
 		8F9B3D9E2A08D8290058EFF4 /* CommentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9B3D9D2A08D8290058EFF4 /* CommentController.swift */; };
-		8F9B3DA02A08D8C30058EFF4 /* InputTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9B3D9F2A08D8C30058EFF4 /* InputTextView.swift */; };
-		8F9B3DA32A08DBEA0058EFF4 /* JGProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 8F9B3DA22A08DBEA0058EFF4 /* JGProgressHUD */; };
 		8F9B3DA62A08DC610058EFF4 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 8F9B3DA52A08DC610058EFF4 /* Kingfisher */; };
 		8F9B3DA82A08E22B0058EFF4 /* FirestoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9B3DA72A08E22B0058EFF4 /* FirestoreManager.swift */; };
 		8F9B3DAA2A08E2330058EFF4 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9B3DA92A08E2330058EFF4 /* UserData.swift */; };
@@ -30,7 +28,7 @@
 		8FC80CEB29ECD7EB00FA9D9D /* FeedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC80CEA29ECD7EB00FA9D9D /* FeedController.swift */; };
 		8FC80CED29ECD80500FA9D9D /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC80CEC29ECD80500FA9D9D /* SearchController.swift */; };
 		8FC80CEF29ECD81800FA9D9D /* PostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC80CEE29ECD81800FA9D9D /* PostController.swift */; };
-		8FC80CF129ECD82D00FA9D9D /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC80CF029ECD82D00FA9D9D /* NotificationController.swift */; };
+		8FC80CF129ECD82D00FA9D9D /* ReelsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC80CF029ECD82D00FA9D9D /* ReelsController.swift */; };
 		8FC80CF329ECD83800FA9D9D /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC80CF229ECD83800FA9D9D /* ProfileController.swift */; };
 		8FC80CF829ECD90000FA9D9D /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC80CF729ECD90000FA9D9D /* ProfileCell.swift */; };
 		8FC80CFA29ECD92200FA9D9D /* ProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC80CF929ECD92200FA9D9D /* ProfileHeader.swift */; };
@@ -46,7 +44,7 @@
 		8FC80D3129ED16BB00FA9D9D /* YPImagePicker in Frameworks */ = {isa = PBXBuildFile; productRef = 8FC80D3029ED16BB00FA9D9D /* YPImagePicker */; };
 		8FC80D3329ED180500FA9D9D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8FC80D3229ED180500FA9D9D /* GoogleService-Info.plist */; };
 		8FC80D3629ED2D1900FA9D9D /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC80D3529ED2D1900FA9D9D /* LoginController.swift */; };
-		8FC80D3829ED2D2300FA9D9D /* RegistrationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC80D3729ED2D2300FA9D9D /* RegistrationController.swift */; };
+		8FC80D3829ED2D2300FA9D9D /* RegisterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC80D3729ED2D2300FA9D9D /* RegisterController.swift */; };
 		8FC80D3D29ED2F7300FA9D9D /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC80D3C29ED2F7300FA9D9D /* Extension.swift */; };
 		8FC80D3F29ED322800FA9D9D /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC80D3E29ED322800FA9D9D /* CustomTextField.swift */; };
 		8FC80D4329ED33C600FA9D9D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC80D4229ED33C600FA9D9D /* Constants.swift */; };
@@ -60,11 +58,10 @@
 		8F1C96A32A09DD7000128800 /* ProfileNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileNavigationView.swift; sourceTree = "<group>"; };
 		8F1C96A52A09FCDA00128800 /* CommentData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentData.swift; sourceTree = "<group>"; };
 		8F1C96A72A09FDB200128800 /* CommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
-		8F1C96A92A09FEFA00128800 /* CommentInputAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentInputAccessoryView.swift; sourceTree = "<group>"; };
+		8F1C96A92A09FEFA00128800 /* CommentTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTextView.swift; sourceTree = "<group>"; };
 		8F1C96AB2A0B9AD300128800 /* FeedNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedNavigationView.swift; sourceTree = "<group>"; };
 		8F9B3D9B2A08D80F0058EFF4 /* UploadController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadController.swift; sourceTree = "<group>"; };
 		8F9B3D9D2A08D8290058EFF4 /* CommentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentController.swift; sourceTree = "<group>"; };
-		8F9B3D9F2A08D8C30058EFF4 /* InputTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTextView.swift; sourceTree = "<group>"; };
 		8F9B3DA72A08E22B0058EFF4 /* FirestoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreManager.swift; sourceTree = "<group>"; };
 		8F9B3DA92A08E2330058EFF4 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		8FC80CCF29ECD40400FA9D9D /* InstagramClone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InstagramClone.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -77,7 +74,7 @@
 		8FC80CEA29ECD7EB00FA9D9D /* FeedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedController.swift; sourceTree = "<group>"; };
 		8FC80CEC29ECD80500FA9D9D /* SearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
 		8FC80CEE29ECD81800FA9D9D /* PostController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostController.swift; sourceTree = "<group>"; };
-		8FC80CF029ECD82D00FA9D9D /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
+		8FC80CF029ECD82D00FA9D9D /* ReelsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReelsController.swift; sourceTree = "<group>"; };
 		8FC80CF229ECD83800FA9D9D /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
 		8FC80CF729ECD90000FA9D9D /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
 		8FC80CF929ECD92200FA9D9D /* ProfileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeader.swift; sourceTree = "<group>"; };
@@ -86,7 +83,7 @@
 		8FC80D1229ED07EE00FA9D9D /* ImageUploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploader.swift; sourceTree = "<group>"; };
 		8FC80D3229ED180500FA9D9D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8FC80D3529ED2D1900FA9D9D /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
-		8FC80D3729ED2D2300FA9D9D /* RegistrationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationController.swift; sourceTree = "<group>"; };
+		8FC80D3729ED2D2300FA9D9D /* RegisterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterController.swift; sourceTree = "<group>"; };
 		8FC80D3C29ED2F7300FA9D9D /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		8FC80D3E29ED322800FA9D9D /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		8FC80D4229ED33C600FA9D9D /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -106,7 +103,6 @@
 				8FC80CE829ECD45900FA9D9D /* SnapKit in Frameworks */,
 				8FC80D2329ED13C900FA9D9D /* FirebaseAuth in Frameworks */,
 				8FC80D2B29ED13C900FA9D9D /* FirebaseStorage in Frameworks */,
-				8F9B3DA32A08DBEA0058EFF4 /* JGProgressHUD in Frameworks */,
 				8FC80D3129ED16BB00FA9D9D /* YPImagePicker in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -152,15 +148,15 @@
 		8FC80CF429ECD8C900FA9D9D /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				8FC80D4429ED402B00FA9D9D /* MainTabController.swift */,
 				8FC80D3429ED2CF500FA9D9D /* Login */,
+				8FC80D4429ED402B00FA9D9D /* MainTabController.swift */,
 				8FC80CEA29ECD7EB00FA9D9D /* FeedController.swift */,
-				8FC80CF229ECD83800FA9D9D /* ProfileController.swift */,
 				8F9B3D9D2A08D8290058EFF4 /* CommentController.swift */,
-				8F9B3D9B2A08D80F0058EFF4 /* UploadController.swift */,
 				8FC80CEC29ECD80500FA9D9D /* SearchController.swift */,
 				8FC80CEE29ECD81800FA9D9D /* PostController.swift */,
-				8FC80CF029ECD82D00FA9D9D /* NotificationController.swift */,
+				8F9B3D9B2A08D80F0058EFF4 /* UploadController.swift */,
+				8FC80CF029ECD82D00FA9D9D /* ReelsController.swift */,
+				8FC80CF229ECD83800FA9D9D /* ProfileController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -176,7 +172,7 @@
 				8FC80D0529ED035800FA9D9D /* UserCell.swift */,
 				8F1C96A12A09D8B100128800 /* SearchCell.swift */,
 				8F1C96A72A09FDB200128800 /* CommentCell.swift */,
-				8F1C96A92A09FEFA00128800 /* CommentInputAccessoryView.swift */,
+				8F1C96A92A09FEFA00128800 /* CommentTextView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -204,7 +200,7 @@
 			isa = PBXGroup;
 			children = (
 				8FC80D3529ED2D1900FA9D9D /* LoginController.swift */,
-				8FC80D3729ED2D2300FA9D9D /* RegistrationController.swift */,
+				8FC80D3729ED2D2300FA9D9D /* RegisterController.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -213,10 +209,9 @@
 			isa = PBXGroup;
 			children = (
 				8FC80D3C29ED2F7300FA9D9D /* Extension.swift */,
-				8FC80D3E29ED322800FA9D9D /* CustomTextField.swift */,
 				8FC80D4229ED33C600FA9D9D /* Constants.swift */,
-				8F9B3D9F2A08D8C30058EFF4 /* InputTextView.swift */,
 				8F1C969D2A0905B400128800 /* Typealias.swift */,
+				8FC80D3E29ED322800FA9D9D /* CustomTextField.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -246,7 +241,6 @@
 				8FC80D2A29ED13C900FA9D9D /* FirebaseStorage */,
 				8FC80D2D29ED143900FA9D9D /* SDWebImage */,
 				8FC80D3029ED16BB00FA9D9D /* YPImagePicker */,
-				8F9B3DA22A08DBEA0058EFF4 /* JGProgressHUD */,
 				8F9B3DA52A08DC610058EFF4 /* Kingfisher */,
 			);
 			productName = InstagramClone;
@@ -282,7 +276,6 @@
 				8FC80D2129ED13C900FA9D9D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				8FC80D2C29ED143900FA9D9D /* XCRemoteSwiftPackageReference "SDWebImage" */,
 				8FC80D2F29ED16BB00FA9D9D /* XCRemoteSwiftPackageReference "YPImagePicker" */,
-				8F9B3DA12A08DBEA0058EFF4 /* XCRemoteSwiftPackageReference "JGProgressHUD" */,
 				8F9B3DA42A08DC610058EFF4 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 8FC80CD029ECD40400FA9D9D /* Products */;
@@ -317,15 +310,14 @@
 				8F1C96A62A09FCDA00128800 /* CommentData.swift in Sources */,
 				8F9B3DAA2A08E2330058EFF4 /* UserData.swift in Sources */,
 				8F1C96A02A09090800128800 /* PostData.swift in Sources */,
-				8F9B3DA02A08D8C30058EFF4 /* InputTextView.swift in Sources */,
 				8FC80CED29ECD80500FA9D9D /* SearchController.swift in Sources */,
 				8FC80D1329ED07EE00FA9D9D /* ImageUploader.swift in Sources */,
 				8F9B3DA82A08E22B0058EFF4 /* FirestoreManager.swift in Sources */,
 				8FC80D4329ED33C600FA9D9D /* Constants.swift in Sources */,
 				8FC80CD329ECD40400FA9D9D /* AppDelegate.swift in Sources */,
-				8FC80CF129ECD82D00FA9D9D /* NotificationController.swift in Sources */,
+				8FC80CF129ECD82D00FA9D9D /* ReelsController.swift in Sources */,
 				8F1C96AC2A0B9AD300128800 /* FeedNavigationView.swift in Sources */,
-				8FC80D3829ED2D2300FA9D9D /* RegistrationController.swift in Sources */,
+				8FC80D3829ED2D2300FA9D9D /* RegisterController.swift in Sources */,
 				8FC80CD529ECD40400FA9D9D /* SceneDelegate.swift in Sources */,
 				8F1C96A82A09FDB200128800 /* CommentCell.swift in Sources */,
 				8FC80D0629ED035800FA9D9D /* UserCell.swift in Sources */,
@@ -333,7 +325,7 @@
 				8FC80D0129ECF2D800FA9D9D /* FeedCell.swift in Sources */,
 				8F9B3D9E2A08D8290058EFF4 /* CommentController.swift in Sources */,
 				8F1C96A42A09DD7000128800 /* ProfileNavigationView.swift in Sources */,
-				8F1C96AA2A09FEFA00128800 /* CommentInputAccessoryView.swift in Sources */,
+				8F1C96AA2A09FEFA00128800 /* CommentTextView.swift in Sources */,
 				8FC80CEF29ECD81800FA9D9D /* PostController.swift in Sources */,
 				8FC80CF829ECD90000FA9D9D /* ProfileCell.swift in Sources */,
 				8FC80CEB29ECD7EB00FA9D9D /* FeedController.swift in Sources */,
@@ -564,14 +556,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		8F9B3DA12A08DBEA0058EFF4 /* XCRemoteSwiftPackageReference "JGProgressHUD" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/JonasGessner/JGProgressHUD";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.0;
-			};
-		};
 		8F9B3DA42A08DC610058EFF4 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher";
@@ -615,11 +599,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		8F9B3DA22A08DBEA0058EFF4 /* JGProgressHUD */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 8F9B3DA12A08DBEA0058EFF4 /* XCRemoteSwiftPackageReference "JGProgressHUD" */;
-			productName = JGProgressHUD;
-		};
 		8F9B3DA52A08DC610058EFF4 /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 8F9B3DA42A08DC610058EFF4 /* XCRemoteSwiftPackageReference "Kingfisher" */;

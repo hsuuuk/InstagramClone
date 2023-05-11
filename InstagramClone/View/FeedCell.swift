@@ -105,7 +105,6 @@ class FeedCell: UICollectionViewCell {
     
     lazy var commentButton2: UIButton = {
         let bt = UIButton(type: .system)
-        bt.setTitle("댓글 0개 보기", for: .normal)
         bt.setTitleColor(.lightGray, for: .normal)
         bt.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .medium)
         bt.contentEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: -1, right: 0)

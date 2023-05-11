@@ -22,8 +22,6 @@ extension ProfileController: FollowButtonDelegate {
             FirestoreManager.follow(uid: user.uid) {
                 self.user.isFollowed = true
                 self.collectionView.reloadData()
-                
-                //NotificationService.uploadNotification(toUid: user.uid, fromUser: currentUser, type: .follow)
             }
         }
     }
@@ -116,16 +114,6 @@ class ProfileController: UIViewController {
         }
         
         navigationController?.navigationBar.isHidden = true
-//        let profileNavigationView = ProfileNavigationView(userName: user.userName)
-//        self.navigationItem.titleView = profileNavigationView
-//
-//        let addPostButton = UIBarButtonItem(image: UIImage(systemName: "square.and.pencil"), style: .plain, target: self, action: #selector(rightBarButtonTapped))
-//        addPostButton.tintColor = .black
-//
-//        let settingButton = UIBarButtonItem(image: UIImage(systemName: "square.and.pencil"), style: .plain, target: self, action: #selector(rightBarButtonTapped))
-//        settingButton.tintColor = .black
-//
-//        navigationItem.rightBarButtonItems = [addPostButton, settingButton]
     }
     
     @objc func rightBarButtonTapped() {

@@ -55,7 +55,7 @@ class MainTabController: UITabBarController {
         let VC1 = FeedController(user: user)
         let VC2 = SearchController()
         let VC3 = PostController()
-        let VC4 = NotificationController()
+        let VC4 = ReelsController()
         let VC5 = ProfileController(user: user)
 
         let feed = navigationController(normalImage: #imageLiteral(resourceName: "Home"), selectedImage: #imageLiteral(resourceName: "Home_Selected"), rootViewController: VC1)
