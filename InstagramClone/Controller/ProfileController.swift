@@ -12,7 +12,7 @@ import Firebase
 extension ProfileController: FollowButtonDelegate {
     func didTapFollow(profileHeader: ProfileHeader) {
         if user.isCurrentUser {
-            print("프로필 편집")
+            
         } else if user.isFollowed {
             FirestoreManager.unfollow(uid: user.uid) {
                 self.user.isFollowed = false
@@ -33,13 +33,15 @@ private let cellIdentifier = "ProfileCell"
 private let headerIdentifier = "ProfileHeader"
 
 class ProfileController: UIViewController {
-    
+        
     private var user: UserData {
         didSet { collectionView.reloadData() }
     }
     private var posts = [PostData]() {
         didSet { collectionView.reloadData() }
     }
+    
+    lazy var navigationView = ProfileNavigationView(userName: user.userName)
     
     lazy var collectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
@@ -54,9 +56,7 @@ class ProfileController: UIViewController {
         
         return collectionView
     }()
-    
-    lazy var profileNavigationView = ProfileNavigationView(userName: user.userName)
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
@@ -64,6 +64,7 @@ class ProfileController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationItem.title = user.userName
         getData()
     }
     
@@ -101,19 +102,33 @@ class ProfileController: UIViewController {
     }
     
     func setupLayout() {
-        view.addSubview(collectionView)
-        collectionView.snp.makeConstraints { make in
-            make.top.left.right.bottom.equalTo(view.safeAreaLayoutGuide)
+        navigationView.delegate = self
+        view.addSubview(navigationView)
+        navigationView.snp.makeConstraints { make in
+            make.top.left.right.equalToSuperview()
+            make.height.equalTo(100)
         }
         
-        navigationItem.title = user.userName
-        //navigationItem.titleView = profileNavigationView
+        view.addSubview(collectionView)
+        collectionView.snp.makeConstraints { make in
+            make.top.equalTo(navigationView.snp.bottom)
+            make.left.right.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
         
-        let appearance = UINavigationBarAppearance()
-        appearance.backgroundColor = .white
-        appearance.shadowColor = .clear
-        navigationController?.navigationBar.standardAppearance = appearance
-        navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        navigationController?.navigationBar.isHidden = true
+//        let profileNavigationView = ProfileNavigationView(userName: user.userName)
+//        self.navigationItem.titleView = profileNavigationView
+//
+//        let addPostButton = UIBarButtonItem(image: UIImage(systemName: "square.and.pencil"), style: .plain, target: self, action: #selector(rightBarButtonTapped))
+//        addPostButton.tintColor = .black
+//
+//        let settingButton = UIBarButtonItem(image: UIImage(systemName: "square.and.pencil"), style: .plain, target: self, action: #selector(rightBarButtonTapped))
+//        settingButton.tintColor = .black
+//
+//        navigationItem.rightBarButtonItems = [addPostButton, settingButton]
+    }
+    
+    @objc func rightBarButtonTapped() {
     }
 }
 
@@ -138,11 +153,13 @@ extension ProfileController: UICollectionViewDataSource {
         header.followingsLable.attributedText = header.attributedStateText(value: user.userStats.following, lable: "팔로잉")
         
         if user.isCurrentUser == false {
-            header.editProfileFollowButton.setTitle(user.isFollowed ? "팔로우" : "팔로잉", for: .normal)
-            header.editProfileFollowButton.setTitleColor(user.isFollowed ? .black : .white, for: .normal)
-            header.editProfileFollowButton.backgroundColor = user.isFollowed ? UIColor.systemGray6 : UIColor.systemBlue
+            header.edit_followButton.setTitle(user.isFollowed ? "팔로우" : "팔로잉", for: .normal)
+            header.edit_followButton.setTitleColor(user.isFollowed ? .black : .white, for: .normal)
+            header.edit_followButton.backgroundColor = user.isFollowed ? UIColor.systemGray6 : UIColor.systemBlue
+            
+            header.share_messageButton.setTitle("메세지", for: .normal)
         }
-        
+
         return header
     }
 }
@@ -154,6 +171,19 @@ extension ProfileController: UICollectionViewDelegateFlowLayout {
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: view.frame.width, height: 240)
+        return CGSize(width: view.frame.width, height: 230)
+    }
+}
+
+extension ProfileController: LogoutDelegate {
+    func didTapLogout() {
+        do {
+            try Auth.auth().signOut()
+            let controller = UINavigationController(rootViewController: LoginController())
+            controller.modalPresentationStyle = .fullScreen
+            present(controller, animated: true)
+        } catch {
+            print(error.localizedDescription)
+        }
     }
 }

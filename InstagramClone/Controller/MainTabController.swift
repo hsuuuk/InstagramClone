@@ -24,17 +24,15 @@ class MainTabController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.delegate = self
         checkLogin()
-        fetchUser()
+        getUser()
     }
     
     // MARK: - Helpers
     
-    func fetchUser() {
+    func getUser() {
         guard let uid = Auth.auth().currentUser?.uid else { return }
-//        UserService.fetchUser(withUid: uid) { user in
-//            self.user = user
-//        }
         
         FirestoreManager.getUser(uid: uid) { userData in
             self.user = userData
@@ -54,65 +52,50 @@ class MainTabController: UITabBarController {
     }
     
     func setupController(user: UserData) {
-        self.delegate = self
+        let VC1 = FeedController(user: user)
+        let VC2 = SearchController()
+        let VC3 = PostController()
+        let VC4 = NotificationController()
+        let VC5 = ProfileController(user: user)
+
+        let feed = navigationController(normalImage: #imageLiteral(resourceName: "Home"), selectedImage: #imageLiteral(resourceName: "Home_Selected"), rootViewController: VC1)
+        let search = navigationController(normalImage: #imageLiteral(resourceName: "Search"), selectedImage: #imageLiteral(resourceName: "Search_Selected"), rootViewController: VC2)
+        let post = navigationController(normalImage: #imageLiteral(resourceName: "Post"), selectedImage: #imageLiteral(resourceName: "Post"), rootViewController: VC3)
+        let notification = navigationController(normalImage: #imageLiteral(resourceName: "Reels"), selectedImage: #imageLiteral(resourceName: "Reels_Selected"), rootViewController: VC4)
+        let profile = navigationController(normalImage: UIImage(systemName: "person.circle")!, selectedImage: UIImage(systemName: "person.circle.fill")!, rootViewController: VC5)
+
+        self.setViewControllers([feed, search, post, notification, profile], animated: true)
         
-        let feed = templateNavigationController(unselectedImage: #imageLiteral(resourceName: "home_unselected"), selectedImage: #imageLiteral(resourceName: "home_selected"), rootViewController: FeedController(user: user))
+        setupTabBarColor()
+    }
+
+    func navigationController(normalImage: UIImage, selectedImage: UIImage, rootViewController: UIViewController) -> UINavigationController {
+        let controller = UINavigationController(rootViewController: rootViewController)
+        controller.tabBarItem.image = normalImage
+        controller.tabBarItem.selectedImage = selectedImage
+    
+        let navigationBarAppearance = UINavigationBarAppearance()
+        navigationBarAppearance.backgroundColor = .white
+        navigationBarAppearance.shadowColor = .clear
+        controller.navigationBar.standardAppearance = navigationBarAppearance
+        controller.navigationBar.scrollEdgeAppearance = navigationBarAppearance
         
-        let search = templateNavigationController(unselectedImage: #imageLiteral(resourceName: "search_unselected"), selectedImage: #imageLiteral(resourceName: "search_selected"), rootViewController: SearchController())
-        
-        let imageSelector = templateNavigationController(unselectedImage: #imageLiteral(resourceName: "plus_unselected"), selectedImage: #imageLiteral(resourceName: "plus_unselected"), rootViewController: ImageSelectorController())
-        
-        let notification = templateNavigationController(unselectedImage: #imageLiteral(resourceName: "like_unselected"), selectedImage: #imageLiteral(resourceName: "like_selected"), rootViewController: NotificationController())
-        
-        let profile = templateNavigationController(unselectedImage: #imageLiteral(resourceName: "profile_unselected"), selectedImage: #imageLiteral(resourceName: "profile_selected"), rootViewController: ProfileController(user: user))
-        
-        viewControllers = [feed, search, imageSelector, notification, profile]
+        return controller
     }
     
-    func templateNavigationController(unselectedImage: UIImage, selectedImage: UIImage, rootViewController: UIViewController) -> UINavigationController {
-        let nav = UINavigationController(rootViewController: rootViewController)
-        nav.tabBarItem.image = unselectedImage
-        nav.tabBarItem.selectedImage = selectedImage
-        self.tabBar.tintColor = .black
-        
-        if #available(iOS 15.0, *) {
-            let appearance = UINavigationBarAppearance()
-            appearance.backgroundColor = .white
-            nav.navigationBar.standardAppearance = appearance
-            nav.navigationBar.scrollEdgeAppearance = appearance
-            
-            let tabBarappearance = UITabBarAppearance()
-            tabBarappearance.backgroundColor = .white
-            nav.tabBarItem.standardAppearance = tabBarappearance
-            nav.tabBarItem.scrollEdgeAppearance = tabBarappearance
-        }
-        
-//        if #available(iOS 15, *) {
-//            let appearance = UINavigationBarAppearance()
-//            appearance.configureWithOpaqueBackground()
-//            appearance.backgroundColor = UIColor.white
-//            appearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
-//            UINavigationBar.appearance().standardAppearance = appearance
-//            UINavigationBar.appearance().scrollEdgeAppearance = appearance
-//        }
-        
-//        if #available(iOS 15.0, *) {
-//            let appearance = UITabBarAppearance()
-//            appearance.configureWithOpaqueBackground()
-//            appearance.backgroundColor = .white
-//            UITabBar.appearance().standardAppearance = appearance
-//            UITabBar.appearance().scrollEdgeAppearance = appearance
-//        }
-        
-        return nav
+    func setupTabBarColor() {
+        let tabBarAppearance = UITabBarAppearance()
+        tabBarAppearance.backgroundColor = .white
+        tabBarAppearance.stackedLayoutAppearance.normal.iconColor = UIColor.black
+        tabBarAppearance.stackedLayoutAppearance.selected.iconColor = UIColor.black
+        self.tabBar.standardAppearance = tabBarAppearance
+        self.tabBar.scrollEdgeAppearance = tabBarAppearance
     }
 }
 
-// MARK: - AuthenticationDelegate
-
 extension MainTabController: LoginDelegate {
     func loginComplete() {
-        fetchUser()
+        getUser()
         self.dismiss(animated: true)
     }
 }
@@ -147,7 +130,7 @@ extension MainTabController: UITabBarControllerDelegate {
             picker.dismiss(animated: false) {
                 guard let selectedImage = items.singlePhoto?.image else { return }
 
-                let controller = UploadPostController()
+                let controller = UploadController()
                 controller.selectedImage = selectedImage
                 //controller.delegate = self
                 controller.currentUser = self.user

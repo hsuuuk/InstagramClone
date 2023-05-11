@@ -163,6 +163,19 @@ class FirestoreManager {
         }
     }
     
+    static func getCommentCount(postId: String, completion: @escaping (Int) -> ()) {
+        COLLECTION_post.document(postId).collection("comments")
+            .getDocuments { querySnapshot, error in
+            if let error = error {
+                print(error.localizedDescription)
+                return
+            } else {
+                let count = querySnapshot?.documents.count ?? 0
+                completion(count)
+            }
+        }
+    }
+    
     // 코멘트 실시간 업데이트⭐️
 //    static func getCommentLive(postId: String, completion: @escaping ([CommentData]) -> ()) {
 //        COLLECTION_post.document(postId).collection("comments").order(by: "date", descending: true)

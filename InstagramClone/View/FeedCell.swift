@@ -11,6 +11,7 @@ protocol FeedCellDelegate: AnyObject {
     func didTapUserName(cell: FeedCell)
     func didTapLike(cell: FeedCell)
     func didTapComment(cell: FeedCell)
+    func didTapComent2(cell: FeedCell)
 }
 
 class FeedCell: UICollectionViewCell {
@@ -61,7 +62,7 @@ class FeedCell: UICollectionViewCell {
     
     lazy var likeButton: UIButton = {
         let bt = UIButton(type: .system)
-        bt.setImage(#imageLiteral(resourceName: "like_unselected"), for: .normal)
+        bt.setImage(#imageLiteral(resourceName: "Like"), for: .normal)
         bt.tintColor = .black
         bt.addTarget(self, action: #selector(didTapLike), for: .touchUpInside)
         return bt
@@ -69,15 +70,22 @@ class FeedCell: UICollectionViewCell {
     
     private lazy var commentButton: UIButton = {
         let bt = UIButton(type: .system)
-        bt.setImage(#imageLiteral(resourceName: "comment"), for: .normal)
+        bt.setImage(#imageLiteral(resourceName: "Comment"), for: .normal)
         bt.tintColor = .black
-        bt.addTarget(self, action: #selector(didTapComments), for: .touchUpInside)
+        bt.addTarget(self, action: #selector(didTapComment), for: .touchUpInside)
         return bt
     }()
     
     private lazy var shareButton: UIButton = {
         let bt = UIButton(type: .system)
-        bt.setImage(#imageLiteral(resourceName: "send2"), for: .normal)
+        bt.setImage(#imageLiteral(resourceName: "Share"), for: .normal)
+        bt.tintColor = .black
+        return bt
+    }()
+    
+    private lazy var bookmarkButton: UIButton = {
+        let bt = UIButton(type: .system)
+        bt.setImage(#imageLiteral(resourceName: "Bookmark"), for: .normal)
         bt.tintColor = .black
         return bt
     }()
@@ -95,7 +103,17 @@ class FeedCell: UICollectionViewCell {
         return lb
     }()
     
-    var postTimeLable: UILabel = {
+    lazy var commentButton2: UIButton = {
+        let bt = UIButton(type: .system)
+        bt.setTitle("댓글 0개 보기", for: .normal)
+        bt.setTitleColor(.lightGray, for: .normal)
+        bt.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+        bt.contentEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: -1, right: 0)
+        bt.addTarget(self, action: #selector(didTapCommentButton2), for: .touchUpInside)
+        return bt
+    }()
+    
+    var dateLable: UILabel = {
         let lb = UILabel()
         lb.text = "1일 전"
         lb.font = UIFont.boldSystemFont(ofSize: 12)
@@ -128,11 +146,26 @@ class FeedCell: UICollectionViewCell {
         }
         postImageView.heightAnchor.constraint(equalTo: widthAnchor, multiplier: 1).isActive = true
         
-        configureActionButtons()
+        let buttonStackView = UIStackView(arrangedSubviews: [likeButton, commentButton, shareButton])
+        buttonStackView.axis = .horizontal
+        buttonStackView.distribution = .fillEqually
+        addSubview(buttonStackView)
+        buttonStackView.snp.makeConstraints { make in
+            make.top.equalTo(postImageView.snp.bottom).offset(10)
+            make.left.equalToSuperview().offset(5)
+            make.width.equalTo(120)
+            make.height.equalTo(30)
+        }
+        
+        addSubview(bookmarkButton)
+        bookmarkButton.snp.makeConstraints { make in
+            make.centerY.equalTo(buttonStackView)
+            make.right.equalToSuperview().offset(-20)
+        }
         
         addSubview(likeLable)
         likeLable.snp.makeConstraints { make in
-            make.top.equalTo(likeButton.snp.bottom).offset(-5)
+            make.top.equalTo(likeButton.snp.bottom).offset(10)
             make.left.equalToSuperview().offset(10)
         }
         
@@ -147,10 +180,16 @@ class FeedCell: UICollectionViewCell {
             make.top.equalTo(likeLable.snp.bottom).offset(5)
             make.left.equalTo(userNameButtonDown.snp.right).offset(5)
         }
-
-        addSubview(postTimeLable)
-        postTimeLable.snp.makeConstraints { make in
+        
+        addSubview(commentButton2)
+        commentButton2.snp.makeConstraints { make in
             make.top.equalTo(captionLable.snp.bottom).offset(5)
+            make.left.equalToSuperview().offset(10)
+        }
+
+        addSubview(dateLable)
+        dateLable.snp.makeConstraints { make in
+            make.top.equalTo(commentButton2.snp.bottom).offset(5)
             make.left.equalToSuperview().offset(10)
         }
     }
@@ -169,24 +208,12 @@ class FeedCell: UICollectionViewCell {
         delegate?.didTapLike(cell: self)
     }
     
-    @objc func didTapComments() {
+    @objc func didTapComment() {
         delegate?.didTapComment(cell: self)
     }
     
-    // MARK: Helper
-    
-    func configureActionButtons() {
-        let buttonStackView = UIStackView(arrangedSubviews: [likeButton, commentButton, shareButton])
-        buttonStackView.axis = .horizontal
-        buttonStackView.distribution = .fillEqually
-        
-        addSubview(buttonStackView)
-        buttonStackView.snp.makeConstraints { make in
-            make.top.equalTo(postImageView.snp.bottom)
-            make.left.equalToSuperview()
-            make.width.equalTo(120)
-            make.height.equalTo(50)
-        }
+    @objc func didTapCommentButton2() {
+        delegate?.didTapComent2(cell: self)
     }
 }
 

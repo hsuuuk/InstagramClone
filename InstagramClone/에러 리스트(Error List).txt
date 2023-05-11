@@ -5,9 +5,17 @@
 좋아요 누른 후 페이지 이동하면 다른 버튼에 색상 변경
 다시 키면 하트 색상 변경 안되어 있음
 
-
 #해결
 사진 업로드 후 피드, 프로필 피드 업데이트 안됨
 - viewwillappear에 getpost()
 
-추적하지마라
+네비게이션뷰를 배치하니 pushcontroller 이후에 backbutton이 안보임
+- viewwilldisappear에 isHidden = false 설정
+- viewWillAppear에 isHidden = true 설정
+
+댓글카운트버튼이 계속 달라짐
+-PostData에 commentCount 프로퍼티 추가해서 해결
+
+날짜가 계속 현재 날짜로 뜬다
+-PostData의 date를 Date 타입에서 Timestamp 타입으로 변경
+-Timestamp 타입의 dateValue() 메서드를 이용해서 Date 타입으로 변경

@@ -99,9 +99,7 @@ class LoginController: UIViewController {
     func configureUI() {
         navigationController?.navigationBar.isHidden = true
         navigationController?.navigationBar.barStyle = .black
-        
-        //configureGradientLayer()
-        
+                
         view.addSubview(iconImage)
         iconImage.snp.makeConstraints { make in
             make.centerX.equalToSuperview()

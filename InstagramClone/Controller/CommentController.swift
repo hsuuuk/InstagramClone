@@ -136,9 +136,11 @@ extension CommentController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! CommentCell
-        cell.commentLabel.text = comments[indexPath.row].comment
-        cell.profileImageView.kf.setImage(with: URL(string: comments[indexPath.row].profileImageUrl))
+        let comments = comments[indexPath.row]
+        cell.commentLabel.text = comments.comment
+        cell.profileImageView.kf.setImage(with: URL(string: comments.profileImageUrl))
         cell.userNameButton.setTitle(user.userName, for: .normal)
+        cell.dateLabel.text = comments.date.dateValue().relativeTime()
         return cell
     }
 }

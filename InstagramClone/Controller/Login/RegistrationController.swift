@@ -114,8 +114,6 @@ class RegistrationController: UIViewController {
     }
     
     func configureUI() {
-        //configureGradientLayer()
-        
         view.addSubview(plusPhotoButton)
         plusPhotoButton.snp.makeConstraints { make in
             make.centerX.equalToSuperview()

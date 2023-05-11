@@ -26,9 +26,16 @@ class CommentCell : UICollectionViewCell  {
         return bt
     }()
     
+    var dateLabel: UILabel = {
+        let lb = UILabel()
+        lb.font = UIFont.systemFont(ofSize: 13, weight: .medium)
+        lb.textColor = .gray
+        return lb
+    }()
+    
     var commentLabel: UILabel = {
         let lb = UILabel()
-        lb.font = UIFont.systemFont(ofSize: 15, weight: .light)
+        lb.font = UIFont.systemFont(ofSize: 15, weight: .medium)
         lb.numberOfLines = 0
         lb.lineBreakMode = .byWordWrapping
         return lb
@@ -44,7 +51,7 @@ class CommentCell : UICollectionViewCell  {
     
     lazy var likeButton: UIButton = {
         let bt = UIButton(type: .system)
-        bt.setImage(#imageLiteral(resourceName: "like_unselected"), for: .normal)
+        bt.setImage(UIImage(named: "Like"), for: .normal)
         bt.tintColor = .black
         return bt
     }()
@@ -71,12 +78,18 @@ class CommentCell : UICollectionViewCell  {
             make.left.equalTo(profileImageView.snp.right).offset(10)
         }
         
+        addSubview(dateLabel)
+        dateLabel.snp.makeConstraints { make in
+            make.centerY.equalTo(userNameButton)
+            make.left.equalTo(userNameButton.snp.right).offset(5)
+        }
+        
         addSubview(likeButton)
         likeButton.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(30)
             make.right.equalToSuperview().offset(-40)
-            make.height.equalTo(10)
-            make.width.equalTo(11)
+            make.height.equalTo(15)
+            make.width.equalTo(15)
         }
 
         addSubview(commentLabel)

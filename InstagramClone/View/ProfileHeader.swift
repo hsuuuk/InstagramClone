@@ -32,14 +32,24 @@ class ProfileHeader: UICollectionReusableView {
         return lb
     }()
     
-    lazy var editProfileFollowButton: UIButton = {
+    lazy var edit_followButton: UIButton = {
         let bt = UIButton(type: .system)
         bt.setTitle("프로필 편집", for: .normal)
         bt.setTitleColor(.black, for: .normal)
         bt.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
-        bt.layer.cornerRadius = 5
-        bt.layer.borderColor = UIColor.lightGray.cgColor
-        bt.layer.borderWidth = 0.5
+        bt.backgroundColor = .systemGray6
+        bt.layer.cornerRadius = 8
+        bt.addTarget(self, action: #selector(handleEditProfileFollowTapped), for: .touchUpInside)
+        return bt
+    }()
+    
+    lazy var share_messageButton: UIButton = {
+        let bt = UIButton(type: .system)
+        bt.setTitle("프로필 공유", for: .normal)
+        bt.setTitleColor(.black, for: .normal)
+        bt.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
+        bt.backgroundColor = .systemGray6
+        bt.layer.cornerRadius = 8
         bt.addTarget(self, action: #selector(handleEditProfileFollowTapped), for: .touchUpInside)
         return bt
     }()
@@ -67,23 +77,24 @@ class ProfileHeader: UICollectionReusableView {
     
     private let gridButton: UIButton = {
         let bt = UIButton(type: .system)
-        bt.setImage(#imageLiteral(resourceName: "Grid 1"), for: .normal)
-        bt.layer.borderWidth = 1
+        bt.setImage(UIImage(named: "Grid"), for: .normal)
+        bt.tintColor = .black
         return bt
     }()
     
     private let listButton: UIButton = {
         let bt = UIButton(type: .system)
-        bt.setImage(#imageLiteral(resourceName: "list"), for: .normal)
+        bt.setImage(UIImage(named: "Reels"), for: .normal)
         bt.tintColor = UIColor(white: 0, alpha: 0.2)
-        bt.layer.borderWidth = 1
+        bt.tintColor = .gray
         return bt
     }()
     
     private let bookmarkButton: UIButton = {
         let bt = UIButton(type: .system)
-        bt.setImage(UIImage(named: "Grid 1"), for: .normal)
+        bt.setImage(UIImage(named: "Tag"), for: .normal)
         bt.tintColor = UIColor(white: 0, alpha: 0.2)
+        bt.tintColor = .gray
         return bt
     }()
     
@@ -114,47 +125,42 @@ class ProfileHeader: UICollectionReusableView {
             make.left.equalToSuperview().offset(15)
         }
         
-        addSubview(editProfileFollowButton)
-        editProfileFollowButton.snp.makeConstraints { make in
-            make.top.equalTo(nameLabel.snp.bottom).offset(16)
-            make.left.equalToSuperview().offset(16)
-            make.right.equalToSuperview().offset(-16)
-            make.height.equalTo(30)
-        }
-        
-        let stackView = UIStackView(arrangedSubviews: [postsLabel, followersLable, followingsLable])
-        stackView.distribution = .fillEqually
-        stackView.axis = .horizontal
-        addSubview(stackView)
-        stackView.snp.makeConstraints { make in
+        let stackView1 = UIStackView(arrangedSubviews: [postsLabel, followersLable, followingsLable])
+        stackView1.distribution = .fillEqually
+        stackView1.axis = .horizontal
+        addSubview(stackView1)
+        stackView1.snp.makeConstraints { make in
             make.centerY.equalTo(profileImageView)
             make.left.equalTo(profileImageView.snp.right).offset(30)
             make.right.equalToSuperview().offset(-30)
             make.height.equalTo(50)
         }
         
-        let buttonStackView = UIStackView(arrangedSubviews: [gridButton, listButton, bookmarkButton])
-        buttonStackView.distribution = .fillEqually
-        addSubview(buttonStackView)
-        buttonStackView.snp.makeConstraints { make in
-            make.left.bottom.right.equalToSuperview()
-            make.height.equalTo(40)
+        let stackView2 = UIStackView(arrangedSubviews: [edit_followButton, share_messageButton])
+        stackView2.distribution = .fillEqually
+        stackView2.spacing = 5
+        addSubview(stackView2)
+        stackView2.snp.makeConstraints { make in
+            make.top.equalTo(nameLabel.snp.bottom).offset(16)
+            make.left.equalToSuperview().offset(16)
+            make.right.equalToSuperview().offset(-16)
+            make.height.equalTo(30)
         }
         
-        let topDivider = UIView()
-        topDivider.backgroundColor = .lightGray
-        addSubview(topDivider)
-        topDivider.snp.makeConstraints { make in
-            make.top.equalTo(buttonStackView.snp.top)
+        let stackView3 = UIStackView(arrangedSubviews: [gridButton, listButton, bookmarkButton])
+        stackView3.distribution = .fillEqually
+        addSubview(stackView3)
+        stackView3.snp.makeConstraints { make in
             make.left.right.equalToSuperview()
-            make.height.equalTo(0.5)
+            make.bottom.equalToSuperview()
+            make.height.equalTo(50)
         }
         
         let bottomDivider = UIView()
         bottomDivider.backgroundColor = .lightGray
         addSubview(bottomDivider)
         bottomDivider.snp.makeConstraints { make in
-            make.top.equalTo(buttonStackView.snp.bottom)
+            make.top.equalTo(stackView3.snp.bottom)
             make.left.right.equalToSuperview()
             make.height.equalTo(0.5)
         }

@@ -6,13 +6,14 @@
 //
 
 import Foundation
+import Firebase
 
 struct CommentData {
     let uid : String
     let userName : String
     let profileImageUrl : String
     let comment : String
-    let date : Date
+    let date : Timestamp
     let commentId: String
     
     init(commentId: String, data : [String : Any]) {
@@ -21,6 +22,6 @@ struct CommentData {
         self.userName = data["userName"] as? String ?? ""
         self.profileImageUrl = data["profileImageUrl"] as? String ?? ""
         self.comment = data["comment"] as? String ?? ""
-        self.date = data["date"] as? Date ?? Date()
+        self.date = data["date"] as? Timestamp ?? Timestamp(date: Date())
     }
 }
