@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8F1C969E2A0905B400128800 /* Typealias.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1C969D2A0905B400128800 /* Typealias.swift */; };
 		8F1C96A02A09090800128800 /* PostData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1C969F2A09090800128800 /* PostData.swift */; };
 		8F1C96A22A09D8B100128800 /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1C96A12A09D8B100128800 /* SearchCell.swift */; };
 		8F1C96A42A09DD7000128800 /* ProfileNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1C96A32A09DD7000128800 /* ProfileNavigationView.swift */; };
@@ -33,7 +32,7 @@
 		8FC80CF829ECD90000FA9D9D /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC80CF729ECD90000FA9D9D /* ProfileCell.swift */; };
 		8FC80CFA29ECD92200FA9D9D /* ProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC80CF929ECD92200FA9D9D /* ProfileHeader.swift */; };
 		8FC80D0129ECF2D800FA9D9D /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC80D0029ECF2D800FA9D9D /* FeedCell.swift */; };
-		8FC80D0629ED035800FA9D9D /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC80D0529ED035800FA9D9D /* UserCell.swift */; };
+		8FC80D0629ED035800FA9D9D /* SearchUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC80D0529ED035800FA9D9D /* SearchUserCell.swift */; };
 		8FC80D1329ED07EE00FA9D9D /* ImageUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC80D1229ED07EE00FA9D9D /* ImageUploader.swift */; };
 		8FC80D2329ED13C900FA9D9D /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 8FC80D2229ED13C900FA9D9D /* FirebaseAuth */; };
 		8FC80D2529ED13C900FA9D9D /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 8FC80D2429ED13C900FA9D9D /* FirebaseDatabase */; };
@@ -52,7 +51,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		8F1C969D2A0905B400128800 /* Typealias.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typealias.swift; sourceTree = "<group>"; };
 		8F1C969F2A09090800128800 /* PostData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostData.swift; sourceTree = "<group>"; };
 		8F1C96A12A09D8B100128800 /* SearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
 		8F1C96A32A09DD7000128800 /* ProfileNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileNavigationView.swift; sourceTree = "<group>"; };
@@ -79,7 +77,7 @@
 		8FC80CF729ECD90000FA9D9D /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
 		8FC80CF929ECD92200FA9D9D /* ProfileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeader.swift; sourceTree = "<group>"; };
 		8FC80D0029ECF2D800FA9D9D /* FeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
-		8FC80D0529ED035800FA9D9D /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
+		8FC80D0529ED035800FA9D9D /* SearchUserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUserCell.swift; sourceTree = "<group>"; };
 		8FC80D1229ED07EE00FA9D9D /* ImageUploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploader.swift; sourceTree = "<group>"; };
 		8FC80D3229ED180500FA9D9D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8FC80D3529ED2D1900FA9D9D /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
@@ -169,7 +167,7 @@
 				8FC80CF729ECD90000FA9D9D /* ProfileCell.swift */,
 				8FC80CF929ECD92200FA9D9D /* ProfileHeader.swift */,
 				8F1C96A32A09DD7000128800 /* ProfileNavigationView.swift */,
-				8FC80D0529ED035800FA9D9D /* UserCell.swift */,
+				8FC80D0529ED035800FA9D9D /* SearchUserCell.swift */,
 				8F1C96A12A09D8B100128800 /* SearchCell.swift */,
 				8F1C96A72A09FDB200128800 /* CommentCell.swift */,
 				8F1C96A92A09FEFA00128800 /* CommentTextView.swift */,
@@ -210,7 +208,6 @@
 			children = (
 				8FC80D3C29ED2F7300FA9D9D /* Extension.swift */,
 				8FC80D4229ED33C600FA9D9D /* Constants.swift */,
-				8F1C969D2A0905B400128800 /* Typealias.swift */,
 				8FC80D3E29ED322800FA9D9D /* CustomTextField.swift */,
 			);
 			path = Utils;
@@ -320,7 +317,7 @@
 				8FC80D3829ED2D2300FA9D9D /* RegisterController.swift in Sources */,
 				8FC80CD529ECD40400FA9D9D /* SceneDelegate.swift in Sources */,
 				8F1C96A82A09FDB200128800 /* CommentCell.swift in Sources */,
-				8FC80D0629ED035800FA9D9D /* UserCell.swift in Sources */,
+				8FC80D0629ED035800FA9D9D /* SearchUserCell.swift in Sources */,
 				8FC80D3629ED2D1900FA9D9D /* LoginController.swift in Sources */,
 				8FC80D0129ECF2D800FA9D9D /* FeedCell.swift in Sources */,
 				8F9B3D9E2A08D8290058EFF4 /* CommentController.swift in Sources */,
@@ -329,7 +326,6 @@
 				8FC80CEF29ECD81800FA9D9D /* PostController.swift in Sources */,
 				8FC80CF829ECD90000FA9D9D /* ProfileCell.swift in Sources */,
 				8FC80CEB29ECD7EB00FA9D9D /* FeedController.swift in Sources */,
-				8F1C969E2A0905B400128800 /* Typealias.swift in Sources */,
 				8FC80D3F29ED322800FA9D9D /* CustomTextField.swift in Sources */,
 				8FC80D4529ED402B00FA9D9D /* MainTabController.swift in Sources */,
 				8F1C96A22A09D8B100128800 /* SearchCell.swift in Sources */,

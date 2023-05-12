@@ -1,5 +1,5 @@
 //
-//  UserCell.swift
+//  SearchUserCell.swift
 //  InstagramClone
 //
 //  Created by 심현석 on 2023/04/17.
@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class UserCell : UITableViewCell {
+class SearchUserCell : UITableViewCell {
 
     //MARK: - Properties
     
