@@ -12,9 +12,8 @@ import Kingfisher
 private let cellIdentifier = "FeedCell"
 
 class FeedController: UIViewController {
-    
-    private var user: UserData
-    private var posts = [PostData]()
+        
+    private var viewModel: PostViewModel
     
     let navigationView = FeedNavigationView()
     
@@ -38,7 +37,7 @@ class FeedController: UIViewController {
     }()
     
     init(user: UserData) {
-        self.user = user
+        self.viewModel = PostViewModel(user: user)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -48,36 +47,22 @@ class FeedController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel.onUpdated = { [weak self] in
+            DispatchQueue.main.async {
+                self?.collectionView.reloadData()
+            }
+        }
+        viewModel.fetchPosts()
         setupLayout()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
-        getData()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         navigationController?.navigationBar.isHidden = false
-    }
-    
-    func getData() {
-        FirestoreManager.getPost { posts in
-            self.posts = posts
-            self.posts.forEach { post in
-                // 좋아요 누른 사용자 확인
-                FirestoreManager.checkUserLikedPost(post: post) { didLike in
-                    if let index = self.posts.firstIndex(where: { $0.postId == post.postId }) {
-                        self.posts[index].didLike = didLike
-                        // 댓글 갯수 확인
-                        FirestoreManager.getCommentCount(postId: post.postId) { count in
-                            self.posts[index].commentCount = count
-                        }
-                    }
-                }
-            }
-            self.collectionView.reloadData()
-        }
     }
     
     func setupLayout() {
@@ -95,44 +80,23 @@ class FeedController: UIViewController {
     }
     
     @objc func handleRefresh() {
-        posts.removeAll()
-        getData()
+        viewModel.posts.removeAll()
+        viewModel.fetchPosts()
         refresher.endRefreshing()
     }
 }
 
 extension FeedController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return posts.count
+        return viewModel.posts.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! FeedCell
         cell.delegate = self
         
-        cell.profileImageView.kf.setImage(with: URL(string: posts[indexPath.row].profileImageUrl))
-        cell.postImageView.kf.setImage(with: URL(string: posts[indexPath.row].imageUrl))
-        cell.userNameButton.setTitle(posts[indexPath.row].userName, for: .normal)
-        cell.captionLable.text = posts[indexPath.row].caption
-        cell.userNameButton.setTitle(posts[indexPath.row].userName, for: .normal)
-        cell.likeLable.text = "좋아요 \(posts[indexPath.row].likes)개"
-        cell.userNameButtonDown.setTitle(posts[indexPath.row].userName, for: .normal)
-        cell.dateLable.text = posts[indexPath.row].date.dateValue().relativeTime()
-        
-        if posts[indexPath.row].didLike {
-            cell.likeButton.setImage(UIImage(named: "Like_Selected"), for: .normal)
-            cell.likeButton.tintColor = .red
-        } else {
-            cell.likeButton.setImage(UIImage(named: "Like"), for: .normal)
-            cell.likeButton.tintColor = .black
-        }
-        
-        if posts[indexPath.row].commentCount == 0 {
-            cell.commentButton2.setTitle("댓글 없음", for: .normal)
-            cell.commentButton2.isEnabled = false
-        } else {
-            cell.commentButton2.setTitle("댓글 \(posts[indexPath.row].commentCount)개 보기", for: .normal)
-        }
+        let post = viewModel.getPost(at: indexPath.row)
+        cell.setup(post: post)
         
         return cell
     }
@@ -149,7 +113,7 @@ extension FeedController: UICollectionViewDelegateFlowLayout {
 extension FeedController: FeedCellDelegate {
     func didTapUserName(cell: FeedCell) {
         guard let indexPath = collectionView.indexPath(for: cell) else { return }
-        var post = posts[indexPath.row]
+        var post = viewModel.posts[indexPath.row]
         
         FirestoreManager.getUser(uid: post.uid) { user in
             let controller = ProfileController(user: user)
@@ -161,40 +125,24 @@ extension FeedController: FeedCellDelegate {
     
     func didTapLike(cell: FeedCell) {
         guard let indexPath = collectionView.indexPath(for: cell) else { return }
-        var post = posts[indexPath.row]
-        
-        if post.didLike {
-            post.didLike.toggle()
-            
-            FirestoreManager.unlikePost(post: post) {
-                cell.likeButton.setImage(UIImage(named: "Like"), for: .normal)
-                cell.likeButton.tintColor = .black
-                post.likes -= 1
-                self.posts[indexPath.row] = post
-                self.collectionView.reloadData()
-            }
-        } else {
-            post.didLike.toggle()
-            
-            FirestoreManager.likePost(post: post) {
-                cell.likeButton.setImage(UIImage(named: "Like_Selected"), for: .normal)
-                cell.likeButton.tintColor = .red
-                post.likes += 1
-                self.posts[indexPath.row] = post
-                self.collectionView.reloadData()
+        var post = viewModel.toggleLike(post: viewModel.posts[indexPath.row]) { didLike in
+            DispatchQueue.main.async {
+                cell.likeButton.setImage(UIImage(named: didLike ? "Like_Selected" : "Like"), for: .normal)
+                cell.likeButton.tintColor = didLike ? .red : .black
+                self.viewModel.onUpdated()
             }
         }
     }
     
     func didTapComment(cell: FeedCell) {
         guard let indexPath = collectionView.indexPath(for: cell) else { return }
-        let controller = CommentController(user: user, post: posts[indexPath.row])
+        let controller = CommentController(user: viewModel.user, post: viewModel.posts[indexPath.row])
         navigationController?.pushViewController(controller, animated: true)
     }
     
     func didTapComent2(cell: FeedCell) {
         guard let indexPath = collectionView.indexPath(for: cell) else { return }
-        let controller = CommentController(user: user, post: posts[indexPath.row])
+        let controller = CommentController(user: viewModel.user, post: viewModel.posts[indexPath.row])
         navigationController?.pushViewController(controller, animated: true)
     }
 }

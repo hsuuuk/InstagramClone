@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 protocol FollowButtonDelegate: AnyObject {
-    func didTapFollow(profileHeader: ProfileHeader)
+    func didTapFollow(header: ProfileHeader)
 }
 
 class ProfileHeader: UICollectionReusableView {
@@ -101,7 +101,7 @@ class ProfileHeader: UICollectionReusableView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        configureUI()
+        setupLayout()
     }
     
     required init?(coder: NSCoder) {
@@ -109,10 +109,25 @@ class ProfileHeader: UICollectionReusableView {
     }
     
     @objc func handleEditProfileFollowTapped() {
-        delegate?.didTapFollow(profileHeader: self)
+        delegate?.didTapFollow(header: self)
     }
     
-    func configureUI() {
+    func setup(user: UserData) {
+        nameLabel.text = user.fullName
+        profileImageView.kf.setImage(with: URL(string: user.profileImageUrl))
+        postsLabel.attributedText = attributedStateText(value: user.userStats.posts, lable: "게시물")
+        followersLable.attributedText = attributedStateText(value: user.userStats.followers, lable: "팔로우")
+        followingsLable.attributedText = attributedStateText(value: user.userStats.following, lable: "팔로잉")
+        
+        if user.isCurrentUser == false {
+            edit_followButton.setTitle(user.isFollowed ? "팔로우" : "팔로잉", for: .normal)
+            edit_followButton.setTitleColor(user.isFollowed ? .black : .white, for: .normal)
+            edit_followButton.backgroundColor = user.isFollowed ? UIColor.systemGray6 : UIColor.systemBlue
+            share_messageButton.setTitle("메세지", for: .normal)
+        }
+    }
+    
+    func setupLayout() {
         addSubview(profileImageView)
         profileImageView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(16)

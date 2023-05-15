@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 class ProfileCell: UICollectionViewCell {
 
@@ -25,6 +26,10 @@ class ProfileCell: UICollectionViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setup(post: PostData) {
+        postImageView.kf.setImage(with: URL(string: post.imageUrl))
     }
     
     func setupLayout() {

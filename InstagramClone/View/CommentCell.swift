@@ -64,6 +64,13 @@ class CommentCell : UICollectionViewCell  {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func setup(comment: CommentData) {
+        commentLabel.text = comment.comment
+        profileImageView.kf.setImage(with: URL(string: comment.profileImageUrl))
+        userNameButton.setTitle(comment.userName, for: .normal)
+        dateLabel.text = comment.date.dateValue().relativeTime()
+    }
 
     func setupLayout() {
         addSubview(profileImageView)

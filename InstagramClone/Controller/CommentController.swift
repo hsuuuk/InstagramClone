@@ -15,11 +15,7 @@ class CommentController : UIViewController {
     
     // MARK: - Properties
     
-    private let user: UserData
-    private let post: PostData
-    private var comments = [CommentData]() {
-        didSet { self.collectionView.reloadData() }
-    }
+    private var viewModel: CommentViewModel
     
     private lazy var collectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
@@ -46,8 +42,7 @@ class CommentController : UIViewController {
     // MARK: - Lifecycle
     
     init(user: UserData, post : PostData) {
-        self.user = user
-        self.post = post
+        self.viewModel = CommentViewModel(user: user, post: post)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -59,8 +54,13 @@ class CommentController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        viewModel.onUpdated = { [weak self] in
+            DispatchQueue.main.async {
+                self?.collectionView.reloadData()
+            }
+        }
+        viewModel.fetchComments()
         setupLayout()
-        getComment()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -79,14 +79,6 @@ class CommentController : UIViewController {
     
     override var canBecomeFirstResponder: Bool {
         return true
-    }
-    
-     // MARK: - API
-    
-    func getComment() {
-        FirestoreManager.getComment(postId: post.postId) { comments in
-            self.comments = comments
-        }
     }
     
     // MARK: - Helpers
@@ -120,16 +112,15 @@ class CommentController : UIViewController {
 
 extension CommentController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return comments.count
+        return viewModel.comments.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! CommentCell
-        let comments = comments[indexPath.row]
-        cell.commentLabel.text = comments.comment
-        cell.profileImageView.kf.setImage(with: URL(string: comments.profileImageUrl))
-        cell.userNameButton.setTitle(user.userName, for: .normal)
-        cell.dateLabel.text = comments.date.dateValue().relativeTime()
+        
+        let comment = viewModel.comments[indexPath.row]
+        cell.setup(comment: comment)
+        
         return cell
     }
 }
@@ -146,9 +137,8 @@ extension CommentController : UICollectionViewDelegateFlowLayout {
 
 extension CommentController: TextViewDelegate {
     func didTapPostButton(inputView: CommentTextView, commment: String) {
-        FirestoreManager.addComment(comment: commment, postID: post.postId, user: user) {
-            inputView.clearTextView()
-            self.getComment()
-        }
+        viewModel.addComment(comment: commment)
+        inputView.clearTextView()
+        viewModel.fetchComments()
     }
 }

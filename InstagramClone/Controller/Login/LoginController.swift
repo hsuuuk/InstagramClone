@@ -43,20 +43,12 @@ class LoginController: UIViewController {
     
     private let emailTextField: UITextField = {
         let tf = CustomTextField(placeholder: "전화번호, 사용자 이름 또는 이메일")
-//        let tf = UITextField()
-//        tf.placeholder = "전화번호, 사용자 이름 또는 이메일"
-//        tf.layer.borderColor = UIColor.lightGray.cgColor
-//        tf.layer.borderWidth = 0.5
         tf.keyboardType = .emailAddress
         return tf
     }()
     
     private let passwordTextField: UITextField = {
         let tf = CustomTextField(placeholder: "비밀번호")
-//        let tf = UITextField()
-//        tf.placeholder = "비밀번호"
-//        tf.layer.borderColor = UIColor.lightGray.cgColor
-//        tf.layer.borderWidth = 0.5
         tf.isSecureTextEntry = true
         return tf
     }()

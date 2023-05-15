@@ -14,6 +14,9 @@
 		8F1C96A82A09FDB200128800 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1C96A72A09FDB200128800 /* CommentCell.swift */; };
 		8F1C96AA2A09FEFA00128800 /* CommentTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1C96A92A09FEFA00128800 /* CommentTextView.swift */; };
 		8F1C96AC2A0B9AD300128800 /* FeedNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F1C96AB2A0B9AD300128800 /* FeedNavigationView.swift */; };
+		8F41D3CB2A11F14A0032CDC7 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F41D3CA2A11F14A0032CDC7 /* UserViewModel.swift */; };
+		8F41D3CD2A11F1500032CDC7 /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F41D3CC2A11F1500032CDC7 /* PostViewModel.swift */; };
+		8F41D3CF2A11F15C0032CDC7 /* CommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F41D3CE2A11F15C0032CDC7 /* CommentViewModel.swift */; };
 		8F9B3D9C2A08D80F0058EFF4 /* UploadController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9B3D9B2A08D80F0058EFF4 /* UploadController.swift */; };
 		8F9B3D9E2A08D8290058EFF4 /* CommentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9B3D9D2A08D8290058EFF4 /* CommentController.swift */; };
 		8F9B3DA62A08DC610058EFF4 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 8F9B3DA52A08DC610058EFF4 /* Kingfisher */; };
@@ -57,6 +60,9 @@
 		8F1C96A72A09FDB200128800 /* CommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
 		8F1C96A92A09FEFA00128800 /* CommentTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTextView.swift; sourceTree = "<group>"; };
 		8F1C96AB2A0B9AD300128800 /* FeedNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedNavigationView.swift; sourceTree = "<group>"; };
+		8F41D3CA2A11F14A0032CDC7 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
+		8F41D3CC2A11F1500032CDC7 /* PostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
+		8F41D3CE2A11F15C0032CDC7 /* CommentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewModel.swift; sourceTree = "<group>"; };
 		8F9B3D9B2A08D80F0058EFF4 /* UploadController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadController.swift; sourceTree = "<group>"; };
 		8F9B3D9D2A08D8290058EFF4 /* CommentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentController.swift; sourceTree = "<group>"; };
 		8F9B3DA72A08E22B0058EFF4 /* FirestoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreManager.swift; sourceTree = "<group>"; };
@@ -106,6 +112,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8F41D3C92A11F12D0032CDC7 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				8F41D3CA2A11F14A0032CDC7 /* UserViewModel.swift */,
+				8F41D3CC2A11F1500032CDC7 /* PostViewModel.swift */,
+				8F41D3CE2A11F15C0032CDC7 /* CommentViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		8FC80CC629ECD40400FA9D9D = {
 			isa = PBXGroup;
 			children = (
@@ -129,6 +145,7 @@
 				8FC80CD429ECD40400FA9D9D /* SceneDelegate.swift */,
 				8FC80D0D29ED07A200FA9D9D /* Firebase */,
 				8FC80D0229ED012C00FA9D9D /* Model */,
+				8F41D3C92A11F12D0032CDC7 /* ViewModel */,
 				8FC80CF529ECD8DD00FA9D9D /* View */,
 				8FC80CF429ECD8C900FA9D9D /* Controller */,
 				8FC80D3B29ED2F6300FA9D9D /* Utils */,
@@ -298,6 +315,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8F41D3CD2A11F1500032CDC7 /* PostViewModel.swift in Sources */,
 				8F9B3D9C2A08D80F0058EFF4 /* UploadController.swift in Sources */,
 				8FC80D3D29ED2F7300FA9D9D /* Extension.swift in Sources */,
 				8F1C96A62A09FCDA00128800 /* CommentData.swift in Sources */,
@@ -311,7 +329,9 @@
 				8FC80CF129ECD82D00FA9D9D /* ReelsController.swift in Sources */,
 				8F1C96AC2A0B9AD300128800 /* FeedNavigationView.swift in Sources */,
 				8FC80D3829ED2D2300FA9D9D /* RegisterController.swift in Sources */,
+				8F41D3CB2A11F14A0032CDC7 /* UserViewModel.swift in Sources */,
 				8FC80CD529ECD40400FA9D9D /* SceneDelegate.swift in Sources */,
+				8F41D3CF2A11F15C0032CDC7 /* CommentViewModel.swift in Sources */,
 				8F1C96A82A09FDB200128800 /* CommentCell.swift in Sources */,
 				8FC80D0629ED035800FA9D9D /* SearchUserCell.swift in Sources */,
 				8FC80D3629ED2D1900FA9D9D /* LoginController.swift in Sources */,

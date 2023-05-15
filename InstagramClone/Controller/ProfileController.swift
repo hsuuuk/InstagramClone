@@ -10,18 +10,17 @@ import Kingfisher
 import Firebase
 
 extension ProfileController: FollowButtonDelegate {
-    func didTapFollow(profileHeader: ProfileHeader) {
-        if user.isCurrentUser {
-            
-        } else if user.isFollowed {
-            FirestoreManager.unfollow(uid: user.uid) {
-                self.user.isFollowed = false
-                self.collectionView.reloadData()
-            }
-        } else {
-            FirestoreManager.follow(uid: user.uid) {
-                self.user.isFollowed = true
-                self.collectionView.reloadData()
+    func didTapFollow(header: ProfileHeader) {
+        viewModel.toggleFollow { isFollowed in
+            DispatchQueue.main.async {
+                if self.viewModel.user.isCurrentUser == false {
+                    header.edit_followButton.setTitle(isFollowed ? "팔로우" : "팔로잉", for: .normal)
+                    header.edit_followButton.setTitleColor(isFollowed ? .black : .white, for: .normal)
+                    header.edit_followButton.backgroundColor = isFollowed ? UIColor.systemGray6 : UIColor.systemBlue
+                    header.share_messageButton.setTitle("메세지", for: .normal)
+                    self.viewModel.fetchUser()
+                    self.viewModel.onUpdated()
+                }
             }
         }
     }
@@ -31,15 +30,10 @@ private let cellIdentifier = "ProfileCell"
 private let headerIdentifier = "ProfileHeader"
 
 class ProfileController: UIViewController {
-        
-    private var user: UserData {
-        didSet { collectionView.reloadData() }
-    }
-    private var posts = [PostData]() {
-        didSet { collectionView.reloadData() }
-    }
     
-    lazy var navigationView = ProfileNavigationView(userName: user.userName)
+    private var viewModel: UserViewModel
+
+    lazy var navigationView = ProfileNavigationView(userName: viewModel.user.userName)
     
     lazy var collectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
@@ -57,46 +51,28 @@ class ProfileController: UIViewController {
         
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel.onUpdated = { [weak self] in
+            DispatchQueue.main.async {
+                self?.collectionView.reloadData()
+            }
+        }
         setupLayout()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationItem.title = user.userName
-        getData()
+        self.navigationItem.title = viewModel.user.userName
+        viewModel.fetchPost()
+        viewModel.fetchUser()
     }
     
     init(user: UserData) {
-        self.user = user
+        self.viewModel = UserViewModel(user: user)
         super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    func getData() {
-        getPost()
-        checkUserIsFollowed()
-        getUserStats()
-    }
-    
-    func getPost() {
-        FirestoreManager.getPost(uid: user.uid) { posts in
-            self.posts = posts
-        }
-    }
-    
-    func checkUserIsFollowed() {
-        FirestoreManager.checkUserIsFollowed(uid: user.uid) { isFollowed in
-            self.user.isFollowed = isFollowed
-        }
-    }
-    
-    func getUserStats() {
-        FirestoreManager.getUserStats(uid: user.uid) { userState in
-            self.user.userStats = userState
-        }
     }
     
     func setupLayout() {
@@ -122,31 +98,23 @@ class ProfileController: UIViewController {
 
 extension ProfileController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return posts.count
+        return viewModel.posts.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! ProfileCell
-        cell.postImageView.kf.setImage(with: URL(string: posts[indexPath.row].imageUrl))
+        
+        let post = viewModel.posts[indexPath.row]
+        cell.setup(post: post)
+        
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerIdentifier, for: indexPath) as! ProfileHeader
         header.delegate = self
-        header.nameLabel.text = user.fullName
-        header.profileImageView.kf.setImage(with: URL(string: user.profileImageUrl))
-        header.postsLabel.attributedText = header.attributedStateText(value: user.userStats.posts, lable: "게시물")
-        header.followersLable.attributedText = header.attributedStateText(value: user.userStats.followers, lable: "팔로우")
-        header.followingsLable.attributedText = header.attributedStateText(value: user.userStats.following, lable: "팔로잉")
         
-        if user.isCurrentUser == false {
-            header.edit_followButton.setTitle(user.isFollowed ? "팔로우" : "팔로잉", for: .normal)
-            header.edit_followButton.setTitleColor(user.isFollowed ? .black : .white, for: .normal)
-            header.edit_followButton.backgroundColor = user.isFollowed ? UIColor.systemGray6 : UIColor.systemBlue
-            
-            header.share_messageButton.setTitle("메세지", for: .normal)
-        }
+        header.setup(user: viewModel.user)
 
         return header
     }
