@@ -108,13 +108,15 @@ class RegisterController: UIViewController {
             make.right.equalToSuperview().offset(-32)
         }
         emailTextField.keyboardType = .emailAddress
-        passwordTextField.isSecureTextEntry = true
+        passwordTextField.isSecureTextEntry = false
         
         view.addSubview(signUpButton)
         signUpButton.snp.makeConstraints { make in
             make.top.equalTo(stackView.snp.bottom).offset(20)
             make.centerX.equalToSuperview()
             make.height.equalTo(50)
+            make.left.equalToSuperview().offset(32)
+            make.right.equalToSuperview().offset(-32)
         }
         
         view.addSubview(alreadyHaveAccountButton)

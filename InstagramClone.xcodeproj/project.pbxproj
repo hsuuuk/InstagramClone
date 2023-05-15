@@ -39,7 +39,6 @@
 		8FC80D2729ED13C900FA9D9D /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 8FC80D2629ED13C900FA9D9D /* FirebaseFirestore */; };
 		8FC80D2929ED13C900FA9D9D /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 8FC80D2829ED13C900FA9D9D /* FirebaseMessaging */; };
 		8FC80D2B29ED13C900FA9D9D /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 8FC80D2A29ED13C900FA9D9D /* FirebaseStorage */; };
-		8FC80D2E29ED143900FA9D9D /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 8FC80D2D29ED143900FA9D9D /* SDWebImage */; };
 		8FC80D3129ED16BB00FA9D9D /* YPImagePicker in Frameworks */ = {isa = PBXBuildFile; productRef = 8FC80D3029ED16BB00FA9D9D /* YPImagePicker */; };
 		8FC80D3329ED180500FA9D9D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8FC80D3229ED180500FA9D9D /* GoogleService-Info.plist */; };
 		8FC80D3629ED2D1900FA9D9D /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC80D3529ED2D1900FA9D9D /* LoginController.swift */; };
@@ -96,7 +95,6 @@
 				8FC80D2529ED13C900FA9D9D /* FirebaseDatabase in Frameworks */,
 				8FC80D2729ED13C900FA9D9D /* FirebaseFirestore in Frameworks */,
 				8FC80D2929ED13C900FA9D9D /* FirebaseMessaging in Frameworks */,
-				8FC80D2E29ED143900FA9D9D /* SDWebImage in Frameworks */,
 				8F9B3DA62A08DC610058EFF4 /* Kingfisher in Frameworks */,
 				8FC80CE829ECD45900FA9D9D /* SnapKit in Frameworks */,
 				8FC80D2329ED13C900FA9D9D /* FirebaseAuth in Frameworks */,
@@ -146,8 +144,8 @@
 		8FC80CF429ECD8C900FA9D9D /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				8FC80D3429ED2CF500FA9D9D /* Login */,
 				8FC80D4429ED402B00FA9D9D /* MainTabController.swift */,
+				8FC80D3429ED2CF500FA9D9D /* Login */,
 				8FC80CEA29ECD7EB00FA9D9D /* FeedController.swift */,
 				8F9B3D9D2A08D8290058EFF4 /* CommentController.swift */,
 				8FC80CEC29ECD80500FA9D9D /* SearchController.swift */,
@@ -236,7 +234,6 @@
 				8FC80D2629ED13C900FA9D9D /* FirebaseFirestore */,
 				8FC80D2829ED13C900FA9D9D /* FirebaseMessaging */,
 				8FC80D2A29ED13C900FA9D9D /* FirebaseStorage */,
-				8FC80D2D29ED143900FA9D9D /* SDWebImage */,
 				8FC80D3029ED16BB00FA9D9D /* YPImagePicker */,
 				8F9B3DA52A08DC610058EFF4 /* Kingfisher */,
 			);
@@ -271,7 +268,6 @@
 			packageReferences = (
 				8FC80CE629ECD45800FA9D9D /* XCRemoteSwiftPackageReference "SnapKit" */,
 				8FC80D2129ED13C900FA9D9D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				8FC80D2C29ED143900FA9D9D /* XCRemoteSwiftPackageReference "SDWebImage" */,
 				8FC80D2F29ED16BB00FA9D9D /* XCRemoteSwiftPackageReference "YPImagePicker" */,
 				8F9B3DA42A08DC610058EFF4 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
@@ -576,14 +572,6 @@
 				minimumVersion = 10.0.0;
 			};
 		};
-		8FC80D2C29ED143900FA9D9D /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SDWebImage/SDWebImage";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.0;
-			};
-		};
 		8FC80D2F29ED16BB00FA9D9D /* XCRemoteSwiftPackageReference "YPImagePicker" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Yummypets/YPImagePicker";
@@ -629,11 +617,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 8FC80D2129ED13C900FA9D9D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
-		};
-		8FC80D2D29ED143900FA9D9D /* SDWebImage */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 8FC80D2C29ED143900FA9D9D /* XCRemoteSwiftPackageReference "SDWebImage" */;
-			productName = SDWebImage;
 		};
 		8FC80D3029ED16BB00FA9D9D /* YPImagePicker */ = {
 			isa = XCSwiftPackageProductDependency;

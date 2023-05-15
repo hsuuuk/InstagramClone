@@ -23,6 +23,7 @@ extension LoginController {
                 print("longin error")
             } else {
                 print("login success")
+                self.dismiss(animated: true)
                 self.delegate?.loginComplete()
             }
         }

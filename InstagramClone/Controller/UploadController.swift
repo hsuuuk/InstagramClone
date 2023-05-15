@@ -8,6 +8,10 @@
 import UIKit
 import SnapKit
 
+protocol UploadDelegate: AnyObject {
+    func didFinishPost(controller: UploadController)
+}
+
 extension UploadController {
     @objc func didTapDone() {
         guard let image = selectedImage else { return }
@@ -17,6 +21,7 @@ extension UploadController {
         FirestoreManager.addPost(caption: caption, image: image, user: user) {
             self.dismiss(animated: true)
             // 첫번째 탭으로 이동 코드
+            self.delegate?.didFinishPost(controller: self)
         }
     }
 }
@@ -24,6 +29,8 @@ extension UploadController {
 class UploadController: UIViewController {
     
     // MARK: - Properties
+    
+    weak var delegate: UploadDelegate?
     
     var currentUser: UserData?
     

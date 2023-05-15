@@ -126,7 +126,7 @@ extension FeedController: UICollectionViewDataSource {
             cell.likeButton.setImage(UIImage(named: "Like"), for: .normal)
             cell.likeButton.tintColor = .black
         }
-
+        
         if posts[indexPath.row].commentCount == 0 {
             cell.commentButton2.setTitle("댓글 없음", for: .normal)
             cell.commentButton2.isEnabled = false

@@ -20,6 +20,7 @@ class ProfileHeader: UICollectionReusableView {
         let iv = UIImageView()
         iv.backgroundColor = .lightGray
         iv.clipsToBounds = true
+        iv.contentMode = .scaleAspectFill
         iv.layer.cornerRadius = 80 / 2
         return iv
     }()

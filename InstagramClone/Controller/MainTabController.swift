@@ -25,19 +25,12 @@ class MainTabController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.delegate = self
+        view.backgroundColor = .white
+        tabBar.isTranslucent = false
         checkLogin()
-        getUser()
     }
     
     // MARK: - Helpers
-    
-    func getUser() {
-        guard let uid = Auth.auth().currentUser?.uid else { return }
-        
-        FirestoreManager.getUser(uid: uid) { userData in
-            self.user = userData
-        }
-    }
     
     func checkLogin() {
         if Auth.auth().currentUser == nil {
@@ -48,6 +41,16 @@ class MainTabController: UITabBarController {
                 navigationController.modalPresentationStyle = .fullScreen
                 self.present(navigationController, animated: true)
             }
+        } else {
+            getUser()
+        }
+    }
+    
+    func getUser() {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        
+        FirestoreManager.getUser(uid: uid) { userData in
+            self.user = userData
         }
     }
     
@@ -64,8 +67,8 @@ class MainTabController: UITabBarController {
         let notification = navigationController(normalImage: #imageLiteral(resourceName: "Reels"), selectedImage: #imageLiteral(resourceName: "Reels_Selected"), rootViewController: VC4)
         let profile = navigationController(normalImage: UIImage(systemName: "person.circle")!, selectedImage: UIImage(systemName: "person.circle.fill")!, rootViewController: VC5)
 
-        self.setViewControllers([feed, search, post, notification, profile], animated: true)
-        
+        self.setViewControllers([feed, search, post, notification, profile], animated: false)
+                
         setupTabBarColor()
     }
 
@@ -79,7 +82,7 @@ class MainTabController: UITabBarController {
         navigationBarAppearance.shadowColor = .clear
         controller.navigationBar.standardAppearance = navigationBarAppearance
         controller.navigationBar.scrollEdgeAppearance = navigationBarAppearance
-        
+                
         return controller
     }
     
@@ -90,13 +93,6 @@ class MainTabController: UITabBarController {
         tabBarAppearance.stackedLayoutAppearance.selected.iconColor = UIColor.black
         self.tabBar.standardAppearance = tabBarAppearance
         self.tabBar.scrollEdgeAppearance = tabBarAppearance
-    }
-}
-
-extension MainTabController: LoginDelegate {
-    func loginComplete() {
-        getUser()
-        self.dismiss(animated: true)
     }
 }
 
@@ -131,8 +127,8 @@ extension MainTabController: UITabBarControllerDelegate {
                 guard let selectedImage = items.singlePhoto?.image else { return }
 
                 let controller = UploadController()
+                controller.delegate = self
                 controller.selectedImage = selectedImage
-                //controller.delegate = self
                 controller.currentUser = self.user
 
                 let navigationController = UINavigationController(rootViewController: controller)
@@ -145,16 +141,19 @@ extension MainTabController: UITabBarControllerDelegate {
 
 // MARK: - UploadPostControllerDelegate
 
-//extension MainTabController: UploadPostControllerDelegate {
-//    func controllerDidFinishUploadingPost(_ controller: UploadPostController) {
-//        selectedIndex = 0
-//        controller.dismiss(animated: true)
-//        
-//        // 업로드 후 FeedController를 다시 첫화면으로
-//        guard let feedNav = viewControllers?.first as? UINavigationController else { return }
-//        guard let feed = feedNav.viewControllers.first as? FeedController else { return }
-//        feed.handleRefresh()
-//        viewControllers?.first
-//    }
-//}
+extension MainTabController: UploadDelegate {
+    func didFinishPost(controller: UploadController) {
+        // 업로드 후 FeedController를 다시 첫화면으로
+        selectedIndex = 0
+        // FeedController 업데이트
+        guard let navigationController = viewControllers?.first as? UINavigationController else { return }
+        guard let feedController = navigationController.viewControllers.first as? FeedController else { return }
+        feedController.handleRefresh()
+    }
+}
 
+extension MainTabController: LoginDelegate {
+    func loginComplete() {
+        getUser()
+    }
+}

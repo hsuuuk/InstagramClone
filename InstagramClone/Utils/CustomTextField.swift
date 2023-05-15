@@ -13,7 +13,7 @@ class CustomTextField: UITextField {
     init(placeholder: String) {
         super.init(frame: .zero)
         setupSpacer()
-        setupProperties()
+        setupProperties(placeholder: placeholder)
     }
     
     required init?(coder: NSCoder) {
@@ -32,13 +32,16 @@ class CustomTextField: UITextField {
         self.leftViewMode = .always
     }
     
-    func setupProperties() {
+    func setupProperties(placeholder: String) {
         self.borderStyle = .roundedRect
         self.textColor = .black
         self.keyboardAppearance = .dark
         self.keyboardType = .emailAddress
         self.backgroundColor = UIColor(white: 1, alpha: 0.3)
-        self.attributedPlaceholder = NSAttributedString(string: placeholder!, attributes: [.foregroundColor: UIColor.lightGray])
-        self.frame.size.height = 50
+        self.attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [.foregroundColor: UIColor.lightGray])
+        
+        self.snp.makeConstraints { make in
+            make.height.equalTo(50)
+        }
     }
 }
